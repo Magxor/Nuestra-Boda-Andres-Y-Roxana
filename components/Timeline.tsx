@@ -50,11 +50,11 @@ const Timeline: React.FC = () => {
 
             {/* Central Year Node */}
             <div className="absolute left-8 md:left-1/2 transform -translate-x-1/2 flex items-center justify-center z-20">
-               {/* Pulsing Ring */}
-               <div className="absolute w-20 h-20 bg-blue-50 rounded-full opacity-0 group-hover:opacity-100 group-hover:scale-125 transition-all duration-700 animate-pulse-slow"></div>
+               {/* Pulsing Ring - Always Active */}
+               <div className="absolute w-20 h-20 bg-blue-100/50 rounded-full animate-pulse-glow"></div>
                
                {/* The Year Bubble */}
-               <div className="w-16 h-16 bg-white rounded-full border-4 border-wedding-royal flex items-center justify-center shadow-lg relative z-20 transition-transform duration-300 group-hover:scale-110">
+               <div className="w-16 h-16 bg-white rounded-full border-2 border-wedding-royal flex items-center justify-center shadow-xl relative z-20 transition-transform duration-300 group-hover:scale-110">
                   <span className="font-cinzel font-bold text-wedding-royal text-sm">{event.year}</span>
                </div>
             </div>
@@ -88,7 +88,7 @@ const Timeline: React.FC = () => {
       </div>
       
       {/* End Dot */}
-      <div className="absolute bottom-0 left-8 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-wedding-royal rounded-full border-4 border-white shadow"></div>
+      <div className="absolute bottom-0 left-8 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-wedding-royal rounded-full border-4 border-white shadow animate-pulse"></div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 export default {
   content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}"
+   "./index.html",
+   "./src/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
     extend: {
@@ -18,11 +18,15 @@ export default {
         'glass-white': 'rgba(255, 255, 255, 0.85)',
       },
       animation: {
+        'pulse-blue': 'pulseBlue 2s ease-in-out infinite',
+        'pulse-blue-soft': 'pulseBlueSoft 3s ease-in-out infinite',
         'float': 'float 6s ease-in-out infinite',
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'fade-in-up': 'fadeInUp 1s ease-out forwards',
         'fade-in': 'fadeIn 1.5s ease-out forwards',
         'spin-slow': 'spin 12s linear infinite',
+        'pulse-glow': 'pulseGlow 2s infinite',
+        'pulse-glow-white': 'pulseGlowWhite 2s infinite',
       },
       keyframes: {
         float: {
@@ -36,7 +40,23 @@ export default {
         fadeIn: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
-        }
+        },
+        pulseGlow: {
+          '0%, 100%': { boxShadow: '0 0 0 0 rgba(21, 96, 189, 0.4)' },
+          '50%': { boxShadow: '0 0 0 10px rgba(21, 96, 189, 0)' },
+        },
+        pulseGlowWhite: {
+          '0%, 100%': { boxShadow: '0 0 0 0 rgba(255, 255, 255, 0.4)' },
+          '50%': { boxShadow: '0 0 0 10px rgba(255, 255, 255, 0)' },
+        },
+        pulseBlue: {
+          '0%, 100%': { boxShadow: '0 0 0 0 rgba(21, 96, 189, 0.6)' },
+          '50%': { boxShadow: '0 0 12px 6px rgba(21, 96, 189, 0.3)' },
+        },
+        pulseBlueSoft: {
+          '0%, 100%': { boxShadow: '0 0 0 0 rgba(255,255,255,0.6)' },
+          '50%': { boxShadow: '0 0 10px 4px rgba(255,255,255,0.3)' },
+        },
       }
     }
   },
