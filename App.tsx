@@ -409,7 +409,7 @@ function App() {
         <div className="text-center mb-12 relative">
            <span className="text-wedding-royal tracking-[0.3em] text-sm font-bold uppercase mb-2 block"> </span>
            <h2 className="text-4xl sm:text-6xl font-cinzel text-slate-800 mb-6">Confirmar Asistencia</h2>
-           <p className="text-slate-600 font-serif italic text-lg px-4">Esperamos contar con tu presencia en esta noche mágica.</p>
+           <p className="text-slate-600 font-serif italic text-lg px-4">Esperamos contar con tu presencia en esta ocación Unica.</p>
         </div>
         <div className="relative">
             <Rsvp />
