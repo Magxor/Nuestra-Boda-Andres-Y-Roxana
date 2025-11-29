@@ -1,7 +1,8 @@
 
 import React, { useState, useMemo } from 'react';
-import { RsvpFormData, Guest, GuestType, TransportType, AccommodationType } from '../types';
-import { Loader2, CheckCircle, Trash2, Plus, Copy, MessageCircle, Car, Bike, Users, XCircle, X, Tent, Building, MapPin, Phone, AlertCircle, ExternalLink } from 'lucide-react';
+import { RsvpFormData, Guest, GuestType, TransportType, AccommodationType, WishStyle } from '../types';
+import { generateWeddingWish } from '../services/geminiService';
+import { Loader2, CheckCircle, Trash2, Plus, Copy, MessageCircle, Car, Bike, Users, XCircle, X, Tent, Building, MapPin, Phone, AlertCircle, ExternalLink, Sparkles, Wand2 } from 'lucide-react';
 
 const Rsvp: React.FC = () => {
   const [guests, setGuests] = useState<Guest[]>([
@@ -22,6 +23,7 @@ const Rsvp: React.FC = () => {
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [isGeneratingWish, setIsGeneratingWish] = useState(false);
 
   // Pricing Constants
   const COST_ADULT = 39000;
@@ -82,6 +84,18 @@ const Rsvp: React.FC = () => {
 
   const removeGuest = (id: string) => {
     setGuests(prev => prev.filter(g => g.id !== id));
+  };
+
+  const handleGenerateWish = async (style: WishStyle) => {
+    setIsGeneratingWish(true);
+    try {
+      const wish = await generateWeddingWish("Andres y Roxana", style);
+      setMessage(wish);
+    } catch (error) {
+      console.error("Error generating wish", error);
+    } finally {
+      setIsGeneratingWish(false);
+    }
   };
 
   const totalCost = useMemo(() => {
@@ -461,15 +475,52 @@ const Rsvp: React.FC = () => {
           </div>
 
           <div className="space-y-2">
-              <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Mensaje para los novios (Opcional)</label>
-              <textarea
-                name="message"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                rows={2}
-                className="w-full px-4 py-3 rounded-lg bg-white border border-slate-200 focus:border-wedding-royal outline-none resize-none"
-                placeholder="Déjanos tus buenos deseos..."
-              />
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end mb-2 gap-2">
+                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Mensaje para los novios (Opcional)</label>
+                
+                {/* AI Helper Buttons */}
+                <div className="flex flex-wrap gap-2 justify-start sm:justify-end">
+                  <span className="text-[10px] text-slate-400 font-bold uppercase flex items-center gap-1 border-r border-slate-300 pr-2 mr-1">
+                    <Sparkles className="w-3 h-3 text-wedding-royal" /> IA Helper:
+                  </span>
+                  
+                  {[
+                    { id: 'formal', label: 'Formal' },
+                    { id: 'funny', label: 'Divertido' },
+                    { id: 'emotional', label: 'Emotivo' },
+                    { id: 'inspirational', label: 'Inspirador' }
+                  ].map((style) => (
+                     <button
+                       key={style.id}
+                       type="button"
+                       onClick={() => handleGenerateWish(style.id as WishStyle)}
+                       disabled={isGeneratingWish}
+                       className="px-2 py-1 text-[10px] bg-white border border-blue-200 text-slate-600 rounded-lg hover:border-wedding-royal hover:text-wedding-royal transition-all disabled:opacity-50"
+                     >
+                       {style.label}
+                     </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="relative">
+                <textarea
+                  name="message"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  rows={3}
+                  disabled={isGeneratingWish}
+                  className="w-full px-4 py-3 rounded-lg bg-white border border-slate-200 focus:border-wedding-royal outline-none resize-none transition-all disabled:bg-slate-50"
+                  placeholder="Déjanos tus buenos deseos..."
+                />
+                {isGeneratingWish && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-white/50 backdrop-blur-sm rounded-lg">
+                    <div className="flex items-center gap-2 text-wedding-royal font-bold text-sm bg-white px-4 py-2 rounded-full shadow-lg border border-blue-100">
+                      <Wand2 className="w-4 h-4 animate-spin-slow" /> Escribiendo magia...
+                    </div>
+                  </div>
+                )}
+              </div>
           </div>
 
           <button
