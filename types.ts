@@ -1,8 +1,11 @@
+
 export type GuestType = 'adult' | 'child_free' | 'child_paid';
 
 export type WishStyle = 'formal' | 'funny' | 'emotional' | 'inspirational';
 
 export type TransportType = 'auto' | 'moto' | 'passenger' | 'none';
+
+export type AccommodationType = 'camping' | 'hotel' | 'none';
 
 export interface Guest {
   id: string;
@@ -12,6 +15,8 @@ export interface Guest {
   openBar: boolean;
   dietaryRestrictions: string;
   transport: TransportType;
+  accommodationType?: AccommodationType;
+  accommodationName?: string;
 }
 
 export interface RsvpFormData {

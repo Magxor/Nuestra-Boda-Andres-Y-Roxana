@@ -1,6 +1,7 @@
+
 import React, { useState, useMemo } from 'react';
-import { RsvpFormData, Guest, GuestType, TransportType } from '../types';
-import { Loader2, CheckCircle, Trash2, Plus, Copy, MessageCircle, Car, Bike, Users, XCircle, X } from 'lucide-react';
+import { RsvpFormData, Guest, GuestType, TransportType, AccommodationType } from '../types';
+import { Loader2, CheckCircle, Trash2, Plus, Copy, MessageCircle, Car, Bike, Users, XCircle, X, Tent, Building, MapPin, Phone, AlertCircle, ExternalLink } from 'lucide-react';
 
 const Rsvp: React.FC = () => {
   const [guests, setGuests] = useState<Guest[]>([
@@ -11,7 +12,9 @@ const Rsvp: React.FC = () => {
       type: 'adult', 
       openBar: false, 
       dietaryRestrictions: '',
-      transport: 'none'
+      transport: 'none',
+      accommodationType: 'none',
+      accommodationName: ''
     }
   ]);
   
@@ -21,20 +24,43 @@ const Rsvp: React.FC = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   // Pricing Constants
-  const COST_ADULT = 35000;
-  const COST_CHILD_PAID = 15000;
+  const COST_ADULT = 39000;
+  const COST_CHILD_PAID = 19500;
   const COST_OPEN_BAR = 15000;
+
+  // Accommodation Data
+  const CAMPING_OPTIONS = [
+    { name: "Patio de los Novios", details: "Hay un Patio disponible para acampar en dónde se hospedan los Novios.", contact: "Consultar con Novios", waNumber: "5493584835320" },
+    { name: "Camping Tenis Club Correa", details: "Duchas agua caliente, parrilleros, seguridad 24hs $10.000/Persona.", contact: "Administración", waNumber: "5493417202056" },
+     ];
+
+  const HOTEL_OPTIONS = [
+    { name: "Quedate Apart Hotel (Correa)", details: "Cabañas dobles/triples, cochera, desayuno. $85.000 x 3 Personas aprox", contact: "Recepción", waNumber: "5493471688696" },
+    { name: "Hotel Verdesole (Cañada)", details: "Hotel de 2 Estrellas. $65.000/Persona aprox Cochera semi techada", contact: "Reservas", waNumber: "5493471315579" }
+  ];
 
   const handleGuestChange = (id: string, field: keyof Guest, value: any) => {
     setGuests(prev => prev.map(g => {
       if (g.id !== id) return g;
 
-      // Logic to reset openBar if changing to child type
+      // Logic to reset openBar and set transport if changing to child type
       if (field === 'type') {
         if (value !== 'adult') {
-          return { ...g, [field]: value, openBar: false };
+          // If child (paid or free), reset openBar AND set transport to 'passenger'
+          return { ...g, [field]: value, openBar: false, transport: 'passenger', accommodationType: 'none', accommodationName: '' };
         }
       }
+      
+      // If transport changes to something other than moto, reset accommodation
+      if (field === 'transport' && value !== 'moto') {
+          return { ...g, [field]: value, accommodationType: 'none', accommodationName: '' };
+      }
+
+      // If accommodation type changes, reset the specific name selection
+      if (field === 'accommodationType') {
+          return { ...g, [field]: value, accommodationName: '' };
+      }
+
       return { ...g, [field]: value };
     }));
   };
@@ -48,7 +74,9 @@ const Rsvp: React.FC = () => {
       type: 'adult', 
       openBar: false, 
       dietaryRestrictions: '',
-      transport: 'none'
+      transport: 'none',
+      accommodationType: 'none',
+      accommodationName: ''
     }]);
   };
 
@@ -89,6 +117,14 @@ const Rsvp: React.FC = () => {
       }
       msg += `\n   🎟 Entrada: ${typeLabel}`;
       msg += `\n   🚗 Transporte: ${transportLabel}`;
+
+      if (g.transport === 'moto' && g.accommodationType && g.accommodationType !== 'none') {
+         const accLabel = g.accommodationType === 'camping' ? 'Camping ⛺' : 'Hotel 🏨';
+         msg += `\n   🛏 Alojamiento: ${accLabel}`;
+         if (g.accommodationName) {
+            msg += ` (${g.accommodationName})`;
+         }
+      }
       
       if (g.type === 'adult') {
          msg += `\n   🍹 Barra Libre: ${g.openBar ? 'SÍ' : 'NO'}`;
@@ -123,6 +159,11 @@ const Rsvp: React.FC = () => {
     }, 1500);
   };
 
+  const openAccommodationChat = (number: string, placeName: string) => {
+     const text = encodeURIComponent(`Hola! Me gustaría consultar disponibilidad el dia 17 de enero en ${placeName}.`);
+     window.open(`https://wa.me/${number}?text=${text}`, '_blank');
+  };
+
   return (
     <>
       <div className="glass-card p-4 sm:p-8 rounded-3xl shadow-2xl border border-white/60 max-w-3xl mx-auto relative overflow-hidden">
@@ -151,9 +192,9 @@ const Rsvp: React.FC = () => {
                           onChange={(e) => handleGuestChange(guest.id, 'type', e.target.value as GuestType)}
                           className="w-full px-4 py-3 rounded-xl bg-blue-50/50 border border-blue-200 focus:border-wedding-royal outline-none appearance-none cursor-pointer text-slate-800 font-medium transition-all hover:bg-blue-50"
                         >
-                          <option value="adult">Adulto ($35.000)</option>
+                          <option value="adult">Adulto ($39.000)</option>
                           <option value="child_free">Menor (1-3 años) - Gratis</option>
-                          <option value="child_paid">Menor (4-7 años) - $15.000</option>
+                          <option value="child_paid">Menor (4-12 años) - $19.500</option>
                         </select>
                         <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
                           <svg className="w-4 h-4 text-wedding-royal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -215,7 +256,7 @@ const Rsvp: React.FC = () => {
                         className="w-5 h-5 rounded text-wedding-royal focus:ring-wedding-royal cursor-pointer"
                       />
                       <label htmlFor={`bar-${guest.id}`} className="text-sm text-slate-700 cursor-pointer select-none flex-1 font-medium">
-                        Incluir Barra Libre (+$15.000)
+                        Incluir Barra Libre (+$15.000) (Cerveza, Vino, Fernet, Gancia)
                       </label>
                     </div>
                   </div>
@@ -225,35 +266,134 @@ const Rsvp: React.FC = () => {
                 <div className="space-y-2">
                    <label className="text-xs font-bold text-slate-500 uppercase block text-center sm:text-left">¿Asistirás en vehículo?</label>
                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                      {/* Auto */}
-                      <label className={`cursor-pointer border rounded-xl p-2 flex flex-col items-center justify-center gap-1 transition-all ${guest.transport === 'auto' ? 'bg-wedding-royal text-white border-wedding-royal shadow-md scale-105' : 'bg-white border-slate-200 text-slate-500 hover:border-blue-300'}`}>
-                          <input type="radio" name={`transport-${guest.id}`} className="hidden" value="auto" onChange={() => handleGuestChange(guest.id, 'transport', 'auto')} checked={guest.transport === 'auto'} />
-                          <Car className="w-5 h-5" />
-                          <span className="text-[10px] font-bold uppercase">Auto</span>
-                      </label>
-                      
-                      {/* Moto */}
-                      <label className={`cursor-pointer border rounded-xl p-2 flex flex-col items-center justify-center gap-1 transition-all ${guest.transport === 'moto' ? 'bg-wedding-royal text-white border-wedding-royal shadow-md scale-105' : 'bg-white border-slate-200 text-slate-500 hover:border-blue-300'}`}>
-                          <input type="radio" name={`transport-${guest.id}`} className="hidden" value="moto" onChange={() => handleGuestChange(guest.id, 'transport', 'moto')} checked={guest.transport === 'moto'} />
-                          <Bike className="w-5 h-5" />
-                          <span className="text-[10px] font-bold uppercase">Moto</span>
-                      </label>
+                      {/* Adult Options */}
+                      {guest.type === 'adult' && (
+                        <>
+                          <label className={`cursor-pointer border rounded-xl p-2 flex flex-col items-center justify-center gap-1 transition-all ${guest.transport === 'auto' ? 'bg-wedding-royal text-white border-wedding-royal shadow-md scale-105' : 'bg-white border-slate-200 text-slate-500 hover:border-blue-300'}`}>
+                              <input type="radio" name={`transport-${guest.id}`} className="hidden" value="auto" onChange={() => handleGuestChange(guest.id, 'transport', 'auto')} checked={guest.transport === 'auto'} />
+                              <Car className="w-5 h-5" />
+                              <span className="text-[10px] font-bold uppercase">Auto</span>
+                          </label>
+                          <label className={`cursor-pointer border rounded-xl p-2 flex flex-col items-center justify-center gap-1 transition-all ${guest.transport === 'moto' ? 'bg-wedding-royal text-white border-wedding-royal shadow-md scale-105' : 'bg-white border-slate-200 text-slate-500 hover:border-blue-300'}`}>
+                              <input type="radio" name={`transport-${guest.id}`} className="hidden" value="moto" onChange={() => handleGuestChange(guest.id, 'transport', 'moto')} checked={guest.transport === 'moto'} />
+                              <Bike className="w-5 h-5" />
+                              <span className="text-[10px] font-bold uppercase">Moto</span>
+                          </label>
+                          <label className={`cursor-pointer border rounded-xl p-2 flex flex-col items-center justify-center gap-1 transition-all ${guest.transport === 'passenger' ? 'bg-wedding-royal text-white border-wedding-royal shadow-md scale-105' : 'bg-white border-slate-200 text-slate-500 hover:border-blue-300'}`}>
+                              <input type="radio" name={`transport-${guest.id}`} className="hidden" value="passenger" onChange={() => handleGuestChange(guest.id, 'transport', 'passenger')} checked={guest.transport === 'passenger'} />
+                              <Users className="w-5 h-5" />
+                              <span className="text-[10px] font-bold uppercase text-center leading-none">Acompañante</span>
+                          </label>
+                          <label className={`cursor-pointer border rounded-xl p-2 flex flex-col items-center justify-center gap-1 transition-all ${guest.transport === 'none' ? 'bg-slate-100 text-slate-400 border-slate-200' : 'bg-white border-slate-200 text-slate-500 hover:border-blue-300'}`}>
+                              <input type="radio" name={`transport-${guest.id}`} className="hidden" value="none" onChange={() => handleGuestChange(guest.id, 'transport', 'none')} checked={guest.transport === 'none'} />
+                              <XCircle className="w-5 h-5" />
+                              <span className="text-[10px] font-bold uppercase">No</span>
+                          </label>
+                        </>
+                      )}
 
-                      {/* Acompañante */}
-                      <label className={`cursor-pointer border rounded-xl p-2 flex flex-col items-center justify-center gap-1 transition-all ${guest.transport === 'passenger' ? 'bg-wedding-royal text-white border-wedding-royal shadow-md scale-105' : 'bg-white border-slate-200 text-slate-500 hover:border-blue-300'}`}>
-                          <input type="radio" name={`transport-${guest.id}`} className="hidden" value="passenger" onChange={() => handleGuestChange(guest.id, 'transport', 'passenger')} checked={guest.transport === 'passenger'} />
-                          <Users className="w-5 h-5" />
-                          <span className="text-[10px] font-bold uppercase text-center leading-none">Acompañante</span>
-                      </label>
-
-                      {/* Ninguno */}
-                      <label className={`cursor-pointer border rounded-xl p-2 flex flex-col items-center justify-center gap-1 transition-all ${guest.transport === 'none' ? 'bg-slate-100 text-slate-400 border-slate-200' : 'bg-white border-slate-200 text-slate-500 hover:border-blue-300'}`}>
-                          <input type="radio" name={`transport-${guest.id}`} className="hidden" value="none" onChange={() => handleGuestChange(guest.id, 'transport', 'none')} checked={guest.transport === 'none'} />
-                          <XCircle className="w-5 h-5" />
-                          <span className="text-[10px] font-bold uppercase">No</span>
-                      </label>
+                      {/* Minor Options (Only Passenger) */}
+                      {guest.type !== 'adult' && (
+                        <label className={`col-span-2 sm:col-span-4 cursor-pointer border rounded-xl p-2 flex flex-col items-center justify-center gap-1 transition-all bg-wedding-royal text-white border-wedding-royal shadow-md opacity-80 cursor-not-allowed`}>
+                            <input type="radio" name={`transport-${guest.id}`} className="hidden" value="passenger" checked={true} readOnly />
+                            <Users className="w-5 h-5" />
+                            <span className="text-[10px] font-bold uppercase text-center leading-none">Acompañante</span>
+                        </label>
+                      )}
                    </div>
                 </div>
+
+                {/* 7. ACCOMMODATION FOR MOTOS (Conditional) */}
+                {guest.type === 'adult' && guest.transport === 'moto' && (
+                  <div className="mt-6 animate-fade-in bg-blue-50/50 p-4 rounded-xl border border-blue-200">
+                     <p className="text-xs font-bold text-wedding-royal uppercase tracking-wider mb-3 flex items-center gap-2">
+                       <Tent className="w-4 h-4" /> Opciones para Viajeros en Moto
+                     </p>
+                     
+                     {/* Category Selection */}
+                     <div className="grid grid-cols-2 gap-3 mb-4">
+                        <label className={`cursor-pointer p-3 rounded-lg border-2 flex flex-col items-center gap-2 transition-all ${guest.accommodationType === 'camping' ? 'border-wedding-royal bg-white shadow-md' : 'border-slate-200 hover:border-blue-300'}`}>
+                           <input type="radio" name={`acc-${guest.id}`} className="hidden" value="camping" onChange={() => handleGuestChange(guest.id, 'accommodationType', 'camping')} checked={guest.accommodationType === 'camping'} />
+                           <Tent className={`w-6 h-6 ${guest.accommodationType === 'camping' ? 'text-wedding-royal' : 'text-slate-400'}`} />
+                           <span className="text-sm font-bold text-slate-700">Quiero Acampar</span>
+                        </label>
+                        <label className={`cursor-pointer p-3 rounded-lg border-2 flex flex-col items-center gap-2 transition-all ${guest.accommodationType === 'hotel' ? 'border-wedding-royal bg-white shadow-md' : 'border-slate-200 hover:border-blue-300'}`}>
+                           <input type="radio" name={`acc-${guest.id}`} className="hidden" value="hotel" onChange={() => handleGuestChange(guest.id, 'accommodationType', 'hotel')} checked={guest.accommodationType === 'hotel'} />
+                           <Building className={`w-6 h-6 ${guest.accommodationType === 'hotel' ? 'text-wedding-royal' : 'text-slate-400'}`} />
+                           <span className="text-sm font-bold text-slate-700">Busco Hotel</span>
+                        </label>
+                     </div>
+
+                     {/* Camping Warning */}
+                     {guest.accommodationType === 'camping' && (
+                        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded mb-4 animate-fade-in flex gap-3">
+                           <AlertCircle className="w-5 h-5 text-yellow-600 flex-shrink-0" />
+                           <div className="text-xs text-yellow-800">
+                             <span className="font-bold">Recordatorio importante:</span> Debes traer tu carpa y todos los artículos necesarios para acampar cómodamente.
+                           </div>
+                        </div>
+                     )}
+
+                     {/* Specific List Selection */}
+                     {guest.accommodationType === 'camping' && (
+                       <div className="space-y-3 animate-fade-in-up">
+                         {CAMPING_OPTIONS.map((opt, i) => (
+                           <div 
+                              key={i} 
+                              onClick={() => handleGuestChange(guest.id, 'accommodationName', opt.name)}
+                              className={`bg-white p-3 rounded-lg border-2 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 cursor-pointer transition-all ${guest.accommodationName === opt.name ? 'border-wedding-royal ring-1 ring-wedding-royal' : 'border-blue-100 hover:border-blue-300'}`}
+                           >
+                              <div className="flex-1">
+                                <div className="flex items-center gap-2">
+                                  <div className={`w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center ${guest.accommodationName === opt.name ? 'bg-wedding-royal border-wedding-royal' : 'bg-white'}`}>
+                                    {guest.accommodationName === opt.name && <div className="w-2 h-2 rounded-full bg-white"></div>}
+                                  </div>
+                                  <p className="font-bold text-slate-800 text-sm">{opt.name}</p>
+                                </div>
+                                <p className="text-xs text-slate-500 mt-1 ml-6">{opt.details}</p>
+                              </div>
+                              <button 
+                                type="button"
+                                onClick={(e) => { e.stopPropagation(); openAccommodationChat(opt.waNumber, opt.name); }}
+                                className="ml-6 sm:ml-0 text-xs font-medium text-white bg-green-500 hover:bg-green-600 px-3 py-1.5 rounded-full flex items-center gap-1 transition-colors z-10"
+                              >
+                                <MessageCircle className="w-3 h-3" /> Contactar
+                              </button>
+                           </div>
+                         ))}
+                       </div>
+                     )}
+
+                     {guest.accommodationType === 'hotel' && (
+                       <div className="space-y-3 animate-fade-in-up">
+                         {HOTEL_OPTIONS.map((opt, i) => (
+                           <div 
+                              key={i} 
+                              onClick={() => handleGuestChange(guest.id, 'accommodationName', opt.name)}
+                              className={`bg-white p-3 rounded-lg border-2 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 cursor-pointer transition-all ${guest.accommodationName === opt.name ? 'border-wedding-royal ring-1 ring-wedding-royal' : 'border-blue-100 hover:border-blue-300'}`}
+                           >
+                              <div className="flex-1">
+                                <div className="flex items-center gap-2">
+                                   <div className={`w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center ${guest.accommodationName === opt.name ? 'bg-wedding-royal border-wedding-royal' : 'bg-white'}`}>
+                                    {guest.accommodationName === opt.name && <div className="w-2 h-2 rounded-full bg-white"></div>}
+                                  </div>
+                                  <p className="font-bold text-slate-800 text-sm">{opt.name}</p>
+                                </div>
+                                <p className="text-xs text-slate-500 mt-1 ml-6">{opt.details}</p>
+                              </div>
+                              <button 
+                                type="button"
+                                onClick={(e) => { e.stopPropagation(); openAccommodationChat(opt.waNumber, opt.name); }}
+                                className="ml-6 sm:ml-0 text-xs font-medium text-white bg-green-500 hover:bg-green-600 px-3 py-1.5 rounded-full flex items-center gap-1 transition-colors z-10"
+                              >
+                                <MessageCircle className="w-3 h-3" /> Contactar
+                              </button>
+                           </div>
+                         ))}
+                       </div>
+                     )}
+                  </div>
+                )}
 
               </div>
             ))}
@@ -350,7 +490,7 @@ const Rsvp: React.FC = () => {
 
       {/* Success Modal */}
       {showSuccessModal && (
-        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm animate-fade-in">
+        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-md animate-fade-in">
           <div className="bg-white rounded-3xl p-8 max-w-sm w-full text-center relative shadow-2xl transform animate-fade-in-up border-4 border-blue-50">
             <div className="absolute -top-10 left-1/2 transform -translate-x-1/2">
                <div className="w-20 h-20 bg-wedding-royal rounded-full flex items-center justify-center shadow-lg ring-4 ring-white">

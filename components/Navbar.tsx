@@ -21,17 +21,21 @@ const Navbar: React.FC = () => {
           A <span className="text-wedding-royal">&</span> R
         </div>
         
-        <div className="flex items-center">
+        <div className="flex items-center relative">
+            {/* Pulsing Emitter Effect */}
+            <span className="absolute inset-0 rounded-xl bg-wedding-royal opacity-20 animate-ping"></span>
+            <span className="absolute inset-0 rounded-xl bg-wedding-royal/10 animate-pulse shadow-[0_0_15px_rgba(21,96,189,0.5)]"></span>
+
             <button
               onClick={scrollToRsvp}
-              className={`px-4 sm:px-6 py-2 rounded-xl text-xs sm:text-sm font-medium tracking-widest uppercase transition-all border flex flex-col items-center leading-tight ${
+              className={`relative z-10 px-4 sm:px-6 py-2 rounded-xl text-xs sm:text-sm font-medium tracking-widest uppercase transition-all border flex flex-col items-center leading-tight ${
                   scrolled 
-                    ? 'bg-wedding-royal text-white border-wedding-royal hover:bg-blue-700' 
-                    : 'bg-white/40 backdrop-blur text-wedding-royal border-wedding-royal/30 hover:bg-wedding-royal hover:text-white'
+                    ? 'bg-wedding-royal text-white border-wedding-royal hover:bg-blue-700 hover:shadow-lg' 
+                    : 'bg-white/80 backdrop-blur text-wedding-royal border-wedding-royal hover:bg-wedding-royal hover:text-white hover:shadow-lg'
               }`}
             >
-              <span>Confirmar Asistencia</span>
-              <span className="text-[12px] opacity-80 font-sans normal-case tracking-normal">hasta el 10/01/2026</span>
+              <span className="font-bold">Confirmar Asistencia</span>
+              <span className="text-[10px] sm:text-[11px] opacity-90 font-sans normal-case tracking-normal font-medium">antes del 05/01/2026</span>
             </button>
         </div>
       </div>

@@ -6,7 +6,7 @@ import Rsvp from './components/Rsvp';
 import Navbar from './components/Navbar';
 import Timeline from './components/Timeline';
 import RoseDecoration from './components/RoseDecoration';
-import { MapPin, Heart, PartyPopper, Church, CheckCircle, X, ExternalLink, Utensils, BedDouble, Star, Phone, Gift, Copy } from 'lucide-react';
+import { MapPin, Heart, PartyPopper, Church, CheckCircle, X, ExternalLink, Utensils, Phone, Gift, Copy } from 'lucide-react';
 
 const WEDDING_DATE = new Date('2026-01-17T16:00:00');
 
@@ -71,7 +71,7 @@ function App() {
            <Heart className="w-10 h-10 text-wedding-royal mx-auto mb-6 fill-current animate-pulse-slow drop-shadow-md" />
            <h2 className="text-4xl sm:text-6xl font-cinzel text-slate-800 mb-6">Nuestra Historia</h2>
            <p className="text-lg text-slate-600 font-serif italic max-w-2xl mx-auto px-4 leading-relaxed">
-             Cada momento nos trajo hasta aquí. Un recorrido por los capítulos de nuestro amor en tonos de azul.
+             Cada momento nos trajo hasta aquí. Un recorrido por unos capítulos de nuestro amor.
            </p>
         </div>
         <Timeline />
@@ -101,13 +101,13 @@ function App() {
               <div className="space-y-4 text-center relative z-10">
                  <div className="bg-white/50 py-2 rounded-lg">
                     <p className="text-xs font-bold uppercase text-slate-400 tracking-widest mb-1">Cuándo</p>
-                    <p className="text-slate-700 font-serif text-xl">17 de Enero, 2026</p>
+                    <p className="text-slate-700 font-serif text-xl">16 de Enero, 2026</p>
                     <p className="text-slate-600 font-sans text-sm font-bold text-wedding-royal">11:00 AM</p>
                  </div>
                  <div>
                     <p className="text-xs font-bold uppercase text-slate-400 tracking-widest mb-1">Dónde</p>
-                    <p className="text-slate-800 font-medium text-lg">Registro Civil Central</p>
-                    <p className="text-slate-500 text-sm">Av. de la Justicia 100</p>
+                    <p className="text-slate-800 font-medium text-lg">Registro Civil</p>
+                    <p className="text-slate-500 text-sm">Bernardino Rivadavia 1232, Correa, Santa Fe</p>
                  </div>
                  <a href="https://www.google.com/maps" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-wedding-royal font-bold text-sm hover:text-blue-900 transition-colors pt-4 border-b-2 border-transparent hover:border-blue-900">
                    <MapPin className="w-4 h-4" /> VER MAPA
@@ -126,12 +126,12 @@ function App() {
                  <div className="bg-white/50 py-2 rounded-lg">
                     <p className="text-xs font-bold uppercase text-slate-400 tracking-widest mb-1">Cuándo</p>
                     <p className="text-slate-700 font-serif text-xl">17 de Enero, 2026</p>
-                    <p className="text-slate-600 font-sans text-sm font-bold text-wedding-royal">18:00 PM</p>
+                    <p className="text-slate-600 font-sans text-sm font-bold text-wedding-royal">11:00 PM</p>
                  </div>
                  <div>
                     <p className="text-xs font-bold uppercase text-slate-400 tracking-widest mb-1">Dónde</p>
-                    <p className="text-slate-800 font-medium text-lg">Parroquia San José</p>
-                    <p className="text-slate-500 text-sm">Calle de la Fé 450</p>
+                    <p className="text-slate-800 font-medium text-lg">Parroquia San Pedro</p>
+                    <p className="text-slate-500 text-sm">Lavalle 886, Cañada de Gómez, Santa Fe</p>
                  </div>
                  <a href="https://www.google.com/maps" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-wedding-royal font-bold text-sm hover:text-blue-900 transition-colors pt-4 border-b-2 border-transparent hover:border-blue-900">
                    <MapPin className="w-4 h-4" /> VER MAPA
@@ -160,14 +160,14 @@ function App() {
 
               <div className="space-y-4 text-center relative z-10 mb-6">
                  <div>
-                    <p className="text-slate-800 font-serif text-xl font-medium">Salón "Los Olivos"</p>
-                    <p className="text-slate-500 text-sm mb-1">Ruta Nacional 9, Km 50</p>
-                    <div className="inline-block bg-slate-800 text-white px-3 py-1 rounded text-xs font-bold tracking-wide">21:00 PM</div>
+                    <p className="text-slate-800 font-serif text-xl font-medium">Ubicación "Campo Adentro"</p>
+                    <p className="text-slate-500 text-sm mb-1">Ruta Nacional 9, Km 385</p>
+                    <div className="inline-block bg-slate-800 text-white px-3 py-1 rounded text-xs font-bold tracking-wide">12:30 PM</div>
                  </div>
                  
                  <div className="bg-white/60 p-4 rounded-xl border border-blue-100 text-sm space-y-2 shadow-sm backdrop-blur-sm">
-                   <p className="flex justify-between items-center border-b border-blue-50 pb-1"><span className="text-slate-600 font-medium">Adultos</span> <span className="font-bold text-slate-900 text-base">$35.000</span></p>
-                   <p className="flex justify-between items-center border-b border-blue-50 pb-1"><span className="text-slate-600 font-medium">Niños (4-7)</span> <span className="font-bold text-slate-900 text-base">$15.000</span></p>
+                   <p className="flex justify-between items-center border-b border-blue-50 pb-1"><span className="text-slate-600 font-medium">Adultos</span> <span className="font-bold text-slate-900 text-base">$39.000</span></p>
+                   <p className="flex justify-between items-center border-b border-blue-50 pb-1"><span className="text-slate-600 font-medium">Niños (4-12)</span> <span className="font-bold text-slate-900 text-base">$19.500</span></p>
                    <p className="flex justify-between items-center pt-1"><span className="text-slate-600 font-medium">Niños (1-3)</span> <span className="font-bold text-wedding-royal uppercase text-xs bg-blue-50 px-2 py-0.5 rounded">No Pagan</span></p>
                  </div>
 
@@ -187,66 +187,6 @@ function App() {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Accommodations Section */}
-      <section id="alojamiento" className="py-20 px-4 relative z-10 bg-white/40 backdrop-blur-sm">
-         <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-12">
-               <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-wedding-royal mb-4">
-                  <BedDouble className="w-6 h-6" />
-               </div>
-               <h2 className="text-3xl sm:text-5xl font-cinzel text-slate-800 mb-4">Alojamiento Sugerido</h2>
-               <p className="text-slate-600 font-serif italic">Para tu comodidad, recomendamos estas opciones cercanas.</p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-               {/* Hotel 1 */}
-               <div className="glass-card overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 group">
-                  <div className="h-48 overflow-hidden relative">
-                     <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1000&auto=format&fit=crop" alt="Hotel" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                     <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-2 py-1 rounded-md flex gap-1 items-center shadow-sm">
-                        <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
-                        <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
-                        <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
-                        <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
-                     </div>
-                  </div>
-                  <div className="p-6 bg-gradient-to-b from-white to-blue-50/30">
-                     <h3 className="text-xl font-cinzel font-bold text-slate-800 mb-2">Hotel Plaza Real</h3>
-                     <p className="text-slate-500 text-sm mb-4 line-clamp-2">Ubicado a solo 10 minutos del salón, ofrece spa y desayuno buffet incluido. Ideal para relajarse antes de la fiesta.</p>
-                     <div className="flex items-center gap-2 text-sm text-slate-600 mb-4">
-                        <MapPin className="w-4 h-4 text-wedding-royal" /> <span>Av. San Martín 1234</span>
-                     </div>
-                     <a href="#" className="block w-full py-2 border border-wedding-royal text-wedding-royal rounded-lg text-center font-bold hover:bg-wedding-royal hover:text-white transition-colors text-sm uppercase tracking-wider">
-                        Reservar
-                     </a>
-                  </div>
-               </div>
-
-               {/* Hotel 2 */}
-               <div className="glass-card overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 group">
-                  <div className="h-48 overflow-hidden relative">
-                     <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=1000&auto=format&fit=crop" alt="Hotel" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                     <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-2 py-1 rounded-md flex gap-1 items-center shadow-sm">
-                        <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
-                        <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
-                        <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
-                     </div>
-                  </div>
-                  <div className="p-6 bg-gradient-to-b from-white to-blue-50/30">
-                     <h3 className="text-xl font-cinzel font-bold text-slate-800 mb-2">Posada del Sol</h3>
-                     <p className="text-slate-500 text-sm mb-4 line-clamp-2">Una opción boutique más íntima con jardines hermosos. Perfecta para familias.</p>
-                     <div className="flex items-center gap-2 text-sm text-slate-600 mb-4">
-                        <MapPin className="w-4 h-4 text-wedding-royal" /> <span>Calle Los Álamos 400</span>
-                     </div>
-                     <a href="#" className="block w-full py-2 border border-wedding-royal text-wedding-royal rounded-lg text-center font-bold hover:bg-wedding-royal hover:text-white transition-colors text-sm uppercase tracking-wider">
-                        Reservar
-                     </a>
-                  </div>
-               </div>
-            </div>
-         </div>
       </section>
 
       {/* Gift Section */}
@@ -303,34 +243,85 @@ function App() {
             
             <h3 className="text-2xl font-cinzel text-center mb-8 text-wedding-royal font-bold tracking-wide">Itinerario de Fiesta</h3>
             
-            <div className="space-y-8 relative pl-4 border-l-2 border-blue-100 ml-4 py-2">
+            <div className="space-y-8 relative pl-4 border-l-2 border-blue-100 ml-4 py-2 overflow-y-auto max-h-[60vh] pr-2 custom-scrollbar">
+               {/* 12:30 */}
                <div className="relative group">
                  <div className="absolute -left-[25px] top-1 w-4 h-4 rounded-full bg-wedding-royal border-4 border-white shadow group-hover:scale-125 transition-transform"></div>
-                 <p className="font-bold text-wedding-royal text-sm mb-1">21:00</p>
-                 <h4 className="font-serif text-lg text-slate-800 font-bold">Recepción</h4>
-                 <p className="text-sm text-slate-500">Bebidas y canapés de bienvenida</p>
+                 <p className="font-bold text-blue-500 text-sm mb-1">12:30</p>
+                 <h4 className="font-serif text-lg text-slate-800 font-bold">Recepción de invitados</h4>
                </div>
+               
+               {/* 13:00 */}
                <div className="relative group">
-                 <div className="absolute -left-[25px] top-1 w-4 h-4 rounded-full bg-blue-400 border-4 border-white shadow group-hover:scale-125 transition-transform"></div>
-                 <p className="font-bold text-blue-500 text-sm mb-1">22:00</p>
+                 <div className="absolute -left-[25px] top-1 w-4 h-4 rounded-full bg-blue-500 border-4 border-white shadow group-hover:scale-125 transition-transform"></div>
+                 <p className="font-bold text-blue-500 text-sm mb-1">13:00</p>
                  <h4 className="font-serif text-lg text-slate-800 font-bold">Entrada de Novios</h4>
                  <p className="text-sm text-slate-500">Primer baile oficial</p>
                </div>
+
+               {/* 13:50 */}
                <div className="relative group">
                  <div className="absolute -left-[25px] top-1 w-4 h-4 rounded-full bg-indigo-400 border-4 border-white shadow group-hover:scale-125 transition-transform"></div>
-                 <p className="font-bold text-indigo-500 text-sm mb-1">22:30</p>
-                 <h4 className="font-serif text-lg text-slate-800 font-bold">Cena Principal</h4>
-                 <p className="text-sm text-slate-500">Menú gourmet de 3 pasos</p>
+                 <p className="font-bold text-blue-500 text-sm mb-1">13:50</p>
+                 <h4 className="font-serif text-lg text-slate-800 font-bold">Discurso de los Novios</h4>
                </div>
+
+               {/* 14:00 */}
                <div className="relative group">
-                 <div className="absolute -left-[25px] top-1 w-4 h-4 rounded-full bg-slate-800 border-4 border-white shadow group-hover:scale-125 transition-transform"></div>
-                 <p className="font-bold text-slate-700 text-sm mb-1">00:00</p>
+                 <div className="absolute -left-[25px] top-1 w-4 h-4 rounded-full bg-slate-700 border-4 border-white shadow group-hover:scale-125 transition-transform"></div>
+                 <p className="font-bold text-blue-500 text-sm mb-1">14:00</p>
+                 <h4 className="font-serif text-lg text-slate-800 font-bold">Almuerzo Principal</h4>
+                 <p className="text-sm text-slate-500">Menú de 3 pasos</p>
+               </div>
+
+               {/* 16:00 */}
+               <div className="relative group">
+                 <div className="absolute -left-[25px] top-1 w-4 h-4 rounded-full bg-wedding-royal border-4 border-white shadow group-hover:scale-125 transition-transform"></div>
+                 <p className="font-bold text-blue-500 text-sm mb-1">16:00</p>
                  <h4 className="font-serif text-lg text-slate-800 font-bold">¡Fiesta!</h4>
-                 <p className="text-sm text-slate-500">Apertura de pista de baile</p>
                </div>
+
+               {/* 16:40 */}
+               <div className="relative group">
+                 <div className="absolute -left-[25px] top-1 w-4 h-4 rounded-full bg-blue-400 border-4 border-white shadow group-hover:scale-125 transition-transform"></div>
+                 <p className="font-bold text-blue-500 text-sm mb-1">16:40</p>
+                 <h4 className="font-serif text-lg text-slate-800 font-bold">Tirada de Ramo</h4>
+               </div>
+
+               {/* 17:00 */}
+               <div className="relative group">
+                 <div className="absolute -left-[25px] top-1 w-4 h-4 rounded-full bg-indigo-400 border-4 border-white shadow group-hover:scale-125 transition-transform"></div>
+                 <p className="font-bold text-blue-500 text-sm mb-1">17:00</p>
+                 <h4 className="font-serif text-lg text-slate-800 font-bold">Fotos en la Torta</h4>
+                 <p className="text-sm text-slate-500">Fotos grupales</p>
+               </div>
+
+               {/* 17:40 */}
+               <div className="relative group">
+                 <div className="absolute -left-[25px] top-1 w-4 h-4 rounded-full bg-slate-700 border-4 border-white shadow group-hover:scale-125 transition-transform"></div>
+                 <p className="font-bold text-blue-500 text-sm mb-1">17:40</p>
+                 <h4 className="font-serif text-lg text-slate-800 font-bold">Corte de Torta</h4>
+               </div>
+
+               {/* 18:00 */}
+               <div className="relative group">
+                 <div className="absolute -left-[25px] top-1 w-4 h-4 rounded-full bg-wedding-royal border-4 border-white shadow group-hover:scale-125 transition-transform"></div>
+                 <p className="font-bold text-blue-500 text-sm mb-1">18:00</p>
+                 <h4 className="font-serif text-lg text-slate-800 font-bold">¡Segunda Tanda!</h4>
+               </div>
+
+               {/* 18:30 */}
+               <div className="relative group">
+                 <div className="absolute -left-[25px] top-1 w-4 h-4 rounded-full bg-blue-400 border-4 border-white shadow group-hover:scale-125 transition-transform"></div>
+                 <p className="font-bold text-blue-500 text-sm mb-1">18:30</p>
+                 <h4 className="font-serif text-lg text-slate-800 font-bold">Refrigerio</h4>
+                 <p className="text-sm text-slate-500">Pizzas y Sándwiches</p>
+               </div>
+
+               {/* 19:00 */}
                <div className="relative group">
                  <div className="absolute -left-[25px] top-1 w-4 h-4 rounded-full bg-slate-800 border-4 border-white shadow group-hover:scale-125 transition-transform"></div>
-                 <p className="font-bold text-slate-700 text-sm mb-1">04:00</p>
+                 <p className="font-bold text-blue-500 text-sm mb-1">19:00</p>
                  <h4 className="font-serif text-lg text-slate-800 font-bold">Fin de Fiesta</h4>
                  <p className="text-sm text-slate-500">Despedida</p>
                </div>
@@ -353,50 +344,50 @@ function App() {
                 </button>
              </div>
 
-             <div className="p-6 overflow-y-auto space-y-6 bg-white relative">
+             <div className="p-6 overflow-y-auto space-y-8 bg-white relative">
                 <div className="text-center border-b border-slate-100 pb-4">
                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Catering a cargo de</p>
-                   <p className="text-xl font-serif italic text-wedding-royal font-bold">"La Cofradía"</p>
+                   <p className="text-xl font-serif italic text-wedding-royal font-bold">"Campo Adentro"</p>
                 </div>
 
-                <div className="space-y-6">
-                   <div className="flex gap-4">
-                      <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0 text-wedding-royal">
-                        <span className="font-cinzel font-bold">1</span>
+                <div className="space-y-8">
+                   <div className="flex flex-col items-center text-center gap-2">
+                      <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-wedding-royal shadow-sm ring-1 ring-blue-100">
+                        <span className="font-cinzel font-bold text-lg">1</span>
                       </div>
                       <div>
-                        <h4 className="font-bold text-slate-800 mb-1">Recepción</h4>
-                        <p className="text-sm text-slate-600">Variedad de canapés fríos y calientes. Isla de fiambres y quesos artesanales. Bruschettas mediterráneas.</p>
+                        <h4 className="font-cinzel font-bold text-slate-800 text-lg mb-1">Recepción</h4>
+                        <p className="text-sm text-slate-600 font-serif">Sándwich de miga de jamón y queso, empanadas de copetin de carne.</p>
                       </div>
                    </div>
 
-                   <div className="flex gap-4">
-                      <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0 text-wedding-royal">
-                        <span className="font-cinzel font-bold">2</span>
+                   <div className="flex flex-col items-center text-center gap-2">
+                      <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-wedding-royal shadow-sm ring-1 ring-blue-100">
+                        <span className="font-cinzel font-bold text-lg">2</span>
                       </div>
                       <div>
-                        <h4 className="font-bold text-slate-800 mb-1">Plato Principal</h4>
-                        <p className="text-sm text-slate-600">Lomo al malbec con milhojas de papa y vegetales glaseados. (Opción vegetariana disponible).</p>
+                        <h4 className="font-cinzel font-bold text-slate-800 text-lg mb-1">Plato Principal</h4>
+                        <p className="text-sm text-slate-600 font-serif">Pollo y cerdo a la parrilla con ensaladas y papas fritas.</p>
                       </div>
                    </div>
 
-                   <div className="flex gap-4">
-                      <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0 text-wedding-royal">
-                        <span className="font-cinzel font-bold">3</span>
+                   <div className="flex flex-col items-center text-center gap-2">
+                      <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-wedding-royal shadow-sm ring-1 ring-blue-100">
+                        <span className="font-cinzel font-bold text-lg">3</span>
                       </div>
                       <div>
-                        <h4 className="font-bold text-slate-800 mb-1">Postre</h4>
-                        <p className="text-sm text-slate-600">Volcán de chocolate con helado de crema americana y frutos rojos.</p>
+                        <h4 className="font-cinzel font-bold text-slate-800 text-lg mb-1">Postre</h4>
+                        <p className="text-sm text-slate-600 font-serif">Torta Helada.</p>
                       </div>
                    </div>
                    
-                   <div className="flex gap-4">
-                      <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0 text-wedding-royal">
-                        <span className="font-cinzel font-bold">4</span>
+                   <div className="flex flex-col items-center text-center gap-2">
+                      <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-wedding-royal shadow-sm ring-1 ring-blue-100">
+                        <span className="font-cinzel font-bold text-lg">4</span>
                       </div>
                       <div>
-                        <h4 className="font-bold text-slate-800 mb-1">Fin de Fiesta</h4>
-                        <p className="text-sm text-slate-600">Pizzas a la parrilla y sándwiches de pernil.</p>
+                        <h4 className="font-cinzel font-bold text-slate-800 text-lg mb-1">Fin de Fiesta</h4>
+                        <p className="text-sm text-slate-600 font-serif">Pizzas y Sándwich de bondiola desmechada.</p>
                       </div>
                    </div>
                 </div>
