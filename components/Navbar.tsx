@@ -34,7 +34,7 @@ const Navbar: React.FC = () => {
                     : 'bg-white/80 backdrop-blur text-wedding-royal border-wedding-royal hover:bg-wedding-royal hover:text-white hover:shadow-lg'
               }`}
             >
-              <span className="font-bold">Confirmar Asistencia</span>
+              <span className="font-bold">Confirmá tu Asistencia</span>
               <span className="text-[10px] sm:text-[11px] opacity-90 font-sans normal-case tracking-normal font-medium">antes del 05/01/2026</span>
             </button>
         </div>
