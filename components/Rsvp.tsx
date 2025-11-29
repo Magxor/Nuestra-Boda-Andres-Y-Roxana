@@ -558,7 +558,7 @@ const Rsvp: React.FC = () => {
             <div className="mt-8">
               <h3 className="font-cinzel font-bold text-2xl text-slate-800 mb-4">¡Gracias por confirmar su asistencia!</h3>
               <p className="text-slate-600 font-serif italic text-lg mb-6">
-                Los esperamos ansiosos.
+                Los esperamos ansiosos!.
               </p>
               <p className="text-wedding-royal font-bold text-sm tracking-widest uppercase mb-8">
                 ¡Gracias por ser Parte!
