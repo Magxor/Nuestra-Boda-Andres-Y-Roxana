@@ -60,7 +60,7 @@ function App() {
              <Countdown targetDate={WEDDING_DATE} />
           </div>
         </div>
-        </header>
+      </header>
       
       {/* Story Section (Timeline) */}
       <section id="historia" className="py-24 px-4 relative z-10 bg-gradient-to-b from-transparent to-white/50">
