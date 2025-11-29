@@ -11,7 +11,7 @@ export default {
         cinzel: ['"Cinzel"', 'serif'],
       },
       colors: {
-        'wedding-royal': '#1560BD',
+        'wedding-royal': '#1545BD',
         'wedding-navy': '#002366',
         'wedding-sky': '#E0F2FE',
         'wedding-dark': '#0f172a',
