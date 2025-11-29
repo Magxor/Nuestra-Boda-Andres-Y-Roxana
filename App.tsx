@@ -28,7 +28,7 @@ function App() {
       </div>
 
       {/* Hero Section */}
-      <main className="min-h-screen flex flex-col items-center justify-center text-center px-4 relative">
+      <header className="min-h-screen flex flex-col items-center justify-center text-center px-4 relative">
         
         {/* Hero Background Image Overlay */}
         <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
@@ -60,7 +60,7 @@ function App() {
              <Countdown targetDate={WEDDING_DATE} />
           </div>
         </div>
-      </main>
+      </header>
       
       {/* Story Section (Timeline) */}
       <section id="historia" className="py-24 px-4 relative z-10 bg-gradient-to-b from-transparent to-white/50">
