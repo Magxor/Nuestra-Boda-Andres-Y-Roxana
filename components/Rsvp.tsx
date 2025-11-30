@@ -312,15 +312,15 @@ const Rsvp: React.FC = () => {
                      
                      {/* Category Selection */}
                      <div className="grid grid-cols-2 gap-3 mb-4">
-                        <label className={`cursor-pointer p-3 rounded-lg border-2 flex flex-col items-center gap-2 transition-all ${guest.accommodationType === 'camping' ? 'border-wedding-royal bg-white shadow-md' : 'border-slate-200 hover:border-blue-300'}`}>
+                        <label className={`cursor-pointer p-3 rounded-lg border-2 flex flex-col items-center gap-2 transition-all ${guest.accommodationType === 'camping' ? 'bg-wedding-royal text-white border-wedding-royal shadow-md' : 'bg-white border-slate-200 text-slate-500 hover:border-blue-300'}`}>
                            <input type="radio" name={`acc-${guest.id}`} className="hidden" value="camping" onChange={() => handleGuestChange(guest.id, 'accommodationType', 'camping')} checked={guest.accommodationType === 'camping'} />
-                           <Tent className={`w-6 h-6 ${guest.accommodationType === 'camping' ? 'text-wedding-royal' : 'text-slate-400'}`} />
-                           <span className="text-sm font-bold text-slate-700">Quiero Acampar</span>
+                           <Tent className={`w-6 h-6 ${guest.accommodationType === 'camping' ? 'text-white' : 'text-slate-400'}`} />
+                           <span className={`text-sm font-bold ${guest.accommodationType === 'camping' ? 'text-white' : 'text-slate-700'}`}>Quiero Acampar</span>
                         </label>
-                        <label className={`cursor-pointer p-3 rounded-lg border-2 flex flex-col items-center gap-2 transition-all ${guest.accommodationType === 'hotel' ? 'border-wedding-royal bg-white shadow-md' : 'border-slate-200 hover:border-blue-300'}`}>
+                        <label className={`cursor-pointer p-3 rounded-lg border-2 flex flex-col items-center gap-2 transition-all ${guest.accommodationType === 'hotel' ? 'bg-wedding-royal text-white border-wedding-royal shadow-md' : 'bg-white border-slate-200 text-slate-500 hover:border-blue-300'}`}>
                            <input type="radio" name={`acc-${guest.id}`} className="hidden" value="hotel" onChange={() => handleGuestChange(guest.id, 'accommodationType', 'hotel')} checked={guest.accommodationType === 'hotel'} />
-                           <Building className={`w-6 h-6 ${guest.accommodationType === 'hotel' ? 'text-wedding-royal' : 'text-slate-400'}`} />
-                           <span className="text-sm font-bold text-slate-700">Busco Hotel</span>
+                           <Building className={`w-6 h-6 ${guest.accommodationType === 'hotel' ? 'text-white' : 'text-slate-400'}`} />
+                           <span className={`text-sm font-bold ${guest.accommodationType === 'hotel' ? 'text-white' : 'text-slate-700'}`}>Busco Hotel</span>
                         </label>
                      </div>
 
@@ -341,7 +341,7 @@ const Rsvp: React.FC = () => {
                            <div 
                               key={i} 
                               onClick={() => handleGuestChange(guest.id, 'accommodationName', opt.name)}
-                              className={`bg-white p-3 rounded-lg border-2 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 cursor-pointer transition-all ${guest.accommodationName === opt.name ? 'border-wedding-royal ring-1 ring-wedding-royal' : 'border-blue-100 hover:border-blue-300'}`}
+                              className={`p-3 rounded-lg border-2 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 cursor-pointer transition-all ${guest.accommodationName === opt.name ? 'bg-blue-50 border-wedding-royal ring-1 ring-wedding-royal' : 'bg-white border-blue-100 hover:border-blue-300'}`}
                            >
                               <div className="flex-1">
                                 <div className="flex items-center gap-2">
@@ -355,7 +355,7 @@ const Rsvp: React.FC = () => {
                               <button 
                                 type="button"
                                 onClick={(e) => { e.stopPropagation(); openAccommodationChat(opt.waNumber, opt.name); }}
-                                className="ml-6 sm:ml-0 text-xs font-medium text-white bg-green-500 hover:bg-green-600 px-3 py-1.5 rounded-full flex items-center gap-1 transition-colors z-10"
+                                className="ml-6 sm:ml-0 text-xs font-medium text-white bg-green-500 hover:bg-green-600 px-3 py-1.5 rounded-full flex items-center gap-1 transition-colors z-10 animate-pulse-glow"
                               >
                                 <MessageCircle className="w-3 h-3" /> Contactar
                               </button>
@@ -370,7 +370,7 @@ const Rsvp: React.FC = () => {
                            <div 
                               key={i} 
                               onClick={() => handleGuestChange(guest.id, 'accommodationName', opt.name)}
-                              className={`bg-white p-3 rounded-lg border-2 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 cursor-pointer transition-all ${guest.accommodationName === opt.name ? 'border-wedding-royal ring-1 ring-wedding-royal' : 'border-blue-100 hover:border-blue-300'}`}
+                              className={`p-3 rounded-lg border-2 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 cursor-pointer transition-all ${guest.accommodationName === opt.name ? 'bg-blue-50 border-wedding-royal ring-1 ring-wedding-royal' : 'bg-white border-blue-100 hover:border-blue-300'}`}
                            >
                               <div className="flex-1">
                                 <div className="flex items-center gap-2">
@@ -384,7 +384,7 @@ const Rsvp: React.FC = () => {
                               <button 
                                 type="button"
                                 onClick={(e) => { e.stopPropagation(); openAccommodationChat(opt.waNumber, opt.name); }}
-                                className="ml-6 sm:ml-0 text-xs font-medium text-white bg-green-500 hover:bg-green-600 px-3 py-1.5 rounded-full flex items-center gap-1 transition-colors z-10"
+                                className="ml-6 sm:ml-0 text-xs font-medium text-white bg-green-500 hover:bg-green-600 px-3 py-1.5 rounded-full flex items-center gap-1 transition-colors z-10 animate-pulse-glow"
                               >
                                 <MessageCircle className="w-3 h-3" /> Contactar
                               </button>
@@ -403,7 +403,7 @@ const Rsvp: React.FC = () => {
             <button
               type="button"
               onClick={addGuest}
-              className="flex items-center gap-2 text-wedding-royal font-bold hover:bg-blue-50 px-6 py-3 rounded-full transition-colors border-2 border-transparent hover:border-blue-100"
+              className="flex items-center gap-2 text-wedding-royal font-bold hover:bg-blue-50 px-6 py-3 rounded-full transition-colors border-2 border-transparent hover:border-blue-100 animate-pulse-glow"
             >
               <Plus className="w-5 h-5" /> Añadir otro Invitado
             </button>
@@ -420,15 +420,15 @@ const Rsvp: React.FC = () => {
             <div className="space-y-4">
               <h5 className="text-sm font-bold uppercase tracking-wider text-slate-400">Forma de Pago</h5>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <label className={`cursor-pointer border rounded-xl p-4 flex flex-col items-center gap-2 transition-all ${paymentMethod === 'transfer' ? 'bg-wedding-royal text-white border-wedding-royal scale-105 shadow-lg' : 'border-slate-600 hover:border-slate-400'}`}>
+                <label className={`cursor-pointer border rounded-xl p-4 flex flex-col items-center gap-2 transition-all ${paymentMethod === 'transfer' ? 'bg-wedding-royal text-white border-wedding-royal scale-105 shadow-lg' : 'border-slate-600 hover:border-slate-400 text-slate-300'}`}>
                   <input type="radio" name="payment" className="hidden" value="transfer" onChange={() => setPaymentMethod('transfer')} checked={paymentMethod === 'transfer'} />
                   <span className="font-bold text-sm">Transferencia</span>
                 </label>
-                <label className={`cursor-pointer border rounded-xl p-4 flex flex-col items-center gap-2 transition-all ${paymentMethod === 'debit' ? 'bg-white text-slate-900 border-white scale-105 shadow-lg' : 'border-slate-600 hover:border-slate-400'}`}>
+                <label className={`cursor-pointer border rounded-xl p-4 flex flex-col items-center gap-2 transition-all ${paymentMethod === 'debit' ? 'bg-wedding-royal text-white border-wedding-royal scale-105 shadow-lg' : 'border-slate-600 hover:border-slate-400 text-slate-300'}`}>
                   <input type="radio" name="payment" className="hidden" value="debit" onChange={() => setPaymentMethod('debit')} checked={paymentMethod === 'debit'} />
                   <span className="font-bold text-sm">T. Débito</span>
                 </label>
-                <label className={`cursor-pointer border rounded-xl p-4 flex flex-col items-center gap-2 transition-all ${paymentMethod === 'credit' ? 'bg-white text-slate-900 border-white scale-105 shadow-lg' : 'border-slate-600 hover:border-slate-400'}`}>
+                <label className={`cursor-pointer border rounded-xl p-4 flex flex-col items-center gap-2 transition-all ${paymentMethod === 'credit' ? 'bg-wedding-royal text-white border-wedding-royal scale-105 shadow-lg' : 'border-slate-600 hover:border-slate-400 text-slate-300'}`}>
                   <input type="radio" name="payment" className="hidden" value="credit" onChange={() => setPaymentMethod('credit')} checked={paymentMethod === 'credit'} />
                   <span className="font-bold text-sm">T. Crédito</span>
                 </label>
@@ -443,7 +443,7 @@ const Rsvp: React.FC = () => {
                        <button 
                          type="button"
                          onClick={() => copyToClipboard('andresmunini')} 
-                         className="text-blue-300 hover:text-white transition-colors"
+                         className="text-blue-300 hover:text-white transition-colors animate-pulse-glow p-1 rounded"
                        >
                           <Copy className="w-5 h-5" />
                        </button>
@@ -480,7 +480,7 @@ const Rsvp: React.FC = () => {
           <button
             type="submit"
             disabled={isSubmitting || paymentMethod === null}
-            className="w-full py-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-cinzel text-lg tracking-widest shadow-lg hover:shadow-2xl hover:scale-[1.01] active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2 relative overflow-hidden group"
+            className="w-full py-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-cinzel text-lg tracking-widest shadow-lg hover:shadow-2xl hover:scale-[1.01] active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2 relative overflow-hidden group animate-pulse-glow"
           >
             {isSubmitting ? (
               <Loader2 className="animate-spin" />
@@ -520,7 +520,7 @@ const Rsvp: React.FC = () => {
               
               <button
                 onClick={() => setShowSuccessModal(false)}
-                className="w-full py-3 bg-wedding-royal text-white rounded-xl font-bold shadow-lg hover:bg-blue-700 transition-colors"
+                className="w-full py-3 bg-wedding-royal text-white rounded-xl font-bold shadow-lg hover:bg-blue-700 transition-colors animate-pulse-glow"
               >
                 Cerrar
               </button>

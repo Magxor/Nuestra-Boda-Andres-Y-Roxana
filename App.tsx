@@ -93,7 +93,7 @@ function App() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Card 1: Civil */}
             <div className="glass-card p-8 rounded-3xl shadow-xl hover:-translate-y-2 transition-transform duration-300 group relative overflow-hidden border-blue-100/50 bg-gradient-to-br from-white/80 to-blue-50/50">
-              <div className="w-16 h-16 bg-blue-100/50 rounded-2xl flex items-center justify-center mb-6 text-wedding-royal mx-auto group-hover:bg-wedding-royal group-hover:text-white transition-colors duration-500 z-10 relative shadow-inner">
+              <div className="w-16 h-16 bg-white border-2 border-wedding-royal rounded-2xl flex items-center justify-center mb-6 text-wedding-royal mx-auto group-hover:bg-wedding-royal group-hover:text-white transition-colors duration-500 z-10 relative shadow-inner">
                 <CheckCircle className="w-8 h-8" />
               </div>
               <h3 className="text-2xl font-cinzel font-bold text-center mb-4 text-slate-800">Civil</h3>
@@ -117,7 +117,7 @@ function App() {
 
             {/* Card 2: Iglesia */}
             <div className="glass-card p-8 rounded-3xl shadow-xl hover:-translate-y-2 transition-transform duration-300 group relative overflow-hidden border-blue-100/50 bg-gradient-to-br from-white/80 to-blue-50/50">
-              <div className="w-16 h-16 bg-blue-100/50 rounded-2xl flex items-center justify-center mb-6 text-wedding-royal mx-auto group-hover:bg-wedding-royal group-hover:text-white transition-colors duration-500 z-10 relative shadow-inner">
+              <div className="w-16 h-16 bg-white border-2 border-wedding-royal rounded-2xl flex items-center justify-center mb-6 text-wedding-royal mx-auto group-hover:bg-wedding-royal group-hover:text-white transition-colors duration-500 z-10 relative shadow-inner">
                 <Church className="w-8 h-8" />
               </div>
               <h3 className="text-2xl font-cinzel font-bold text-center mb-4 text-slate-800">Iglesia</h3>
@@ -180,7 +180,7 @@ function App() {
 
               <button 
                 onClick={() => setShowItinerary(true)}
-                className="w-full py-4 bg-slate-900 text-white rounded-xl text-sm font-bold tracking-widest hover:bg-wedding-royal transition-colors shadow-xl hover:shadow-2xl flex items-center justify-center gap-2 group/btn"
+                className="w-full py-4 bg-slate-900 text-white rounded-xl text-sm font-bold tracking-widest hover:bg-wedding-royal transition-colors shadow-xl hover:shadow-2xl flex items-center justify-center gap-2 group/btn animate-pulse-glow"
               >
                 CONOCÉ EL ITINERARIO <ExternalLink className="w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
               </button>
@@ -217,7 +217,7 @@ function App() {
                        navigator.clipboard.writeText('andresmunini');
                        alert('Alias copiado al portapapeles');
                     }}
-                    className="p-3 bg-blue-50 hover:bg-wedding-royal hover:text-white text-wedding-royal rounded-xl transition-all duration-300 shadow-sm"
+                    className="p-3 bg-blue-50 hover:bg-wedding-royal hover:text-white text-wedding-royal rounded-xl transition-all duration-300 shadow-sm animate-pulse-glow"
                     title="Copiar Alias"
                  >
                     <Copy className="w-5 h-5" />

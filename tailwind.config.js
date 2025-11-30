@@ -1,7 +1,8 @@
 export default {
   content: [
    "./index.html",
-   "./src/**/*.{js,ts,jsx,tsx}"
+   "./*.{js,ts,jsx,tsx}",
+   "./components/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
     extend: {
@@ -42,16 +43,16 @@ export default {
           '100%': { opacity: '1' },
         },
         pulseGlow: {
-          '0%, 100%': { boxShadow: '0 0 0 0 rgba(21, 96, 189, 0.4)' },
-          '50%': { boxShadow: '0 0 0 10px rgba(21, 96, 189, 0)' },
+          '0%, 100%': { boxShadow: '0 0 0 0 rgba(21, 69, 189, 0.4)' },
+          '50%': { boxShadow: '0 0 0 10px rgba(21, 69, 189, 0)' },
         },
         pulseGlowWhite: {
           '0%, 100%': { boxShadow: '0 0 0 0 rgba(255, 255, 255, 0.4)' },
           '50%': { boxShadow: '0 0 0 10px rgba(255, 255, 255, 0)' },
         },
         pulseBlue: {
-          '0%, 100%': { boxShadow: '0 0 0 0 rgba(21, 96, 189, 0.6)' },
-          '50%': { boxShadow: '0 0 12px 6px rgba(21, 96, 189, 0.3)' },
+          '0%, 100%': { boxShadow: '0 0 0 0 rgba(21, 69, 189, 0.6)' },
+          '50%': { boxShadow: '0 0 12px 6px rgba(21, 69, 189, 0.3)' },
         },
         pulseBlueSoft: {
           '0%, 100%': { boxShadow: '0 0 0 0 rgba(255,255,255,0.6)' },

@@ -26,12 +26,12 @@ const Navbar: React.FC = () => {
             onClick={scrollToRsvp}
             className={`relative z-10 px-5 sm:px-7 py-2.5 rounded-full text-xs sm:text-sm font-medium tracking-widest uppercase transition-all duration-300 flex flex-col items-center leading-tight shadow-lg animate-pulse-glow ${
             scrolled
-            ? 'bg-wedding-royal text-black'
-            : 'bg-blue text-wedding-royal'
+            ? 'bg-wedding-royal text-white'
+            : 'bg-white text-wedding-royal'
            }`}
            >
               <span className="font-bold drop-shadow-sm">Confirmá tu Asistencia</span>
-              <span className={`text-[10px] sm:text-[10px] font-sans normal-case tracking-wide opacity-90 ${scrolled ? 'text-black-100' : 'text-wedding-royal-500'}`}>antes del 05/01/2026</span>
+              <span className={`text-[10px] sm:text-[10px] font-sans normal-case tracking-wide opacity-90 ${scrolled ? 'text-blue-100' : 'text-wedding-royal-500'}`}>antes del 05/01/2026</span>
             </button>
         </div>
       </div>
