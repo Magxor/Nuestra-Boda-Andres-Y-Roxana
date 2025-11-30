@@ -1,58 +1,71 @@
-
 import React, { useState, useEffect, useRef } from 'react';
-import { Music, Pause, Play, Volume2, VolumeX } from 'lucide-react';
+import { Pause, Play, Volume2, VolumeX } from 'lucide-react';
 
 const MusicPlayer: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true); // ✅ empieza muteado
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    // Intentar reproducir automáticamente al cargar
-    const attemptPlay = async () => {
-      if (audioRef.current) {
-        try {
-          audioRef.current.volume = 0.5; // 50% volumen inicial
-          await audioRef.current.play();
-          setIsPlaying(true);
-        } catch (error) {
-          console.log("Autoplay bloqueado por el navegador, esperando interacción del usuario.");
-          setIsPlaying(false);
-        }
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.volume = 0.5;
+    audio.muted = true; // ✅ autoplay permitido
+
+    const tryPlay = async () => {
+      try {
+        await audio.play();
+        setIsPlaying(true);
+      } catch {
+        console.log("Autoplay bloqueado, esperando interacción…");
       }
     };
 
-    attemptPlay();
+    tryPlay();
+
+    // ✅ Cuando el usuario toca o scrollea, activamos sonido
+    const enableSound = () => {
+      if (audio) {
+        audio.muted = false;
+        setIsMuted(false);
+        window.removeEventListener('click', enableSound);
+        window.removeEventListener('scroll', enableSound);
+      }
+    };
+
+    window.addEventListener('click', enableSound);
+    window.addEventListener('scroll', enableSound);
+
+    return () => {
+      window.removeEventListener('click', enableSound);
+      window.removeEventListener('scroll', enableSound);
+    };
   }, []);
 
   const togglePlay = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
+    if (!audioRef.current) return;
+
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
     }
+    setIsPlaying(!isPlaying);
   };
 
   const toggleMute = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (audioRef.current) {
-      audioRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
-    }
+    if (!audioRef.current) return;
+
+    audioRef.current.muted = !isMuted;
+    setIsMuted(!isMuted);
   };
 
   return (
     <div className="fixed bottom-4 left-4 z-50 flex items-center gap-2">
-      <audio 
-        ref={audioRef} 
-        src="/song.mp3" 
-        loop 
-        preload="auto"
-      />
-      
+      <audio ref={audioRef} src="/song.mp3" loop preload="auto" />
+
       <button
         onClick={togglePlay}
         className={`relative w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-300 group border-2 ${
@@ -60,9 +73,7 @@ const MusicPlayer: React.FC = () => {
             ? 'bg-wedding-royal border-white text-white animate-pulse-glow' 
             : 'bg-white border-wedding-royal text-wedding-royal'
         }`}
-        aria-label={isPlaying ? "Pausar música" : "Reproducir música"}
       >
-        {/* Animated Rings when playing */}
         {isPlaying && (
           <>
             <span className="absolute inline-flex h-full w-full rounded-full bg-wedding-royal opacity-20 animate-ping"></span>
@@ -79,7 +90,6 @@ const MusicPlayer: React.FC = () => {
         </div>
       </button>
 
-      {/* Mute toggle mini button */}
       {isPlaying && (
         <button
           onClick={toggleMute}
