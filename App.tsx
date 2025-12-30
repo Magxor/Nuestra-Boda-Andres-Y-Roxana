@@ -128,7 +128,7 @@ function App() {
                  <div className="bg-white/50 py-2 rounded-lg">
                     <p className="text-xs font-bold uppercase text-slate-400 tracking-widest mb-1">Cuándo</p>
                     <p className="text-slate-700 font-serif text-xl">17 de Enero, 2026</p>
-                    <p className="text-slate-600 font-sans text-sm font-bold text-wedding-royal">11:00 PM</p>
+                    <p className="text-slate-600 font-sans text-sm font-bold text-wedding-royal">11:30 AM</p>
                  </div>
                  <div>
                     <p className="text-xs font-bold uppercase text-slate-400 tracking-widest mb-1">Dónde</p>
