@@ -424,14 +424,7 @@ const Rsvp: React.FC = () => {
                   <input type="radio" name="payment" className="hidden" value="transfer" onChange={() => setPaymentMethod('transfer')} checked={paymentMethod === 'transfer'} />
                   <span className="font-bold text-sm">Transferencia</span>
                 </label>
-                <label className={`cursor-pointer border rounded-xl p-4 flex flex-col items-center gap-2 transition-all ${paymentMethod === 'debit' ? 'bg-wedding-royal text-white border-wedding-royal scale-105 shadow-lg' : 'border-slate-600 hover:border-slate-400 text-slate-300'}`}>
-                  <input type="radio" name="payment" className="hidden" value="debit" onChange={() => setPaymentMethod('debit')} checked={paymentMethod === 'debit'} />
-                  <span className="font-bold text-sm">T. Débito</span>
-                </label>
-                <label className={`cursor-pointer border rounded-xl p-4 flex flex-col items-center gap-2 transition-all ${paymentMethod === 'credit' ? 'bg-wedding-royal text-white border-wedding-royal scale-105 shadow-lg' : 'border-slate-600 hover:border-slate-400 text-slate-300'}`}>
-                  <input type="radio" name="payment" className="hidden" value="credit" onChange={() => setPaymentMethod('credit')} checked={paymentMethod === 'credit'} />
-                  <span className="font-bold text-sm">T. Crédito</span>
-                </label>
+                
               </div>
 
               {/* Info de Transferencia INLINE */}
@@ -452,11 +445,7 @@ const Rsvp: React.FC = () => {
                  </div>
               )}
               
-              {(paymentMethod === 'debit' || paymentMethod === 'credit') && (
-                 <div className="text-center text-sm text-slate-300 bg-slate-700/50 p-2 rounded mt-2 animate-fade-in">
-                   Podrás abonar con tarjeta al llegar al evento.
-                 </div>
-              )}
+              
             </div>
           </div>
 
