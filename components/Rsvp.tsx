@@ -1,7 +1,7 @@
 
 import React, { useState, useMemo } from 'react';
-import { RsvpFormData, Guest, GuestType, TransportType, AccommodationType, WishStyle } from '../types';
-import { Loader2, CheckCircle, Trash2, Plus, Copy, MessageCircle, Car, Bike, Users, XCircle, X, Tent, Building, MapPin, Phone, AlertCircle, ExternalLink } from 'lucide-react';
+import { Guest, GuestType, TransportType } from '../types';
+import { Loader2, CheckCircle, Trash2, Plus, Copy, MessageCircle, Car, Bike, Users, XCircle, X, Tent, Building, AlertCircle, Wallet, Banknote } from 'lucide-react';
 
 const Rsvp: React.FC = () => {
   const [guests, setGuests] = useState<Guest[]>([
@@ -18,10 +18,11 @@ const Rsvp: React.FC = () => {
     }
   ]);
   
-  const [paymentMethod, setPaymentMethod] = useState<'transfer' | 'debit' | 'credit' | null>(null);
+  const [paymentMethod, setPaymentMethod] = useState<'transfer' | 'cash' | null>(null);
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [errorField, setErrorField] = useState<string | null>(null);
 
   // Pricing Constants
   const COST_ADULT = 39000;
@@ -40,23 +41,23 @@ const Rsvp: React.FC = () => {
   ];
 
   const handleGuestChange = (id: string, field: keyof Guest, value: any) => {
+    // Clear error if user starts typing
+    if (errorField) setErrorField(null);
+
     setGuests(prev => prev.map(g => {
       if (g.id !== id) return g;
 
       // Logic to reset openBar and set transport if changing to child type
       if (field === 'type') {
         if (value !== 'adult') {
-          // If child (paid or free), reset openBar AND set transport to 'passenger'
           return { ...g, [field]: value, openBar: false, transport: 'passenger', accommodationType: 'none', accommodationName: '' };
         }
       }
       
-      // If transport changes to something other than moto, reset accommodation
       if (field === 'transport' && value !== 'moto') {
           return { ...g, [field]: value, accommodationType: 'none', accommodationName: '' };
       }
 
-      // If accommodation type changes, reset the specific name selection
       if (field === 'accommodationType') {
           return { ...g, [field]: value, accommodationName: '' };
       }
@@ -112,9 +113,12 @@ const Rsvp: React.FC = () => {
       if (g.transport === 'passenger') transportLabel = 'Acompañante 🤝';
 
       msg += `\n👤 *Invitado ${i + 1}:* ${g.fullName}`;
-      if (g.type === 'adult') {
+      
+      // Contact only shown for first guest in message if it exists
+      if (i === 0 && g.contact) {
         msg += `\n   📞 Contacto: ${g.contact}`;
       }
+
       msg += `\n   🎟 Entrada: ${typeLabel}`;
       msg += `\n   🚗 Transporte: ${transportLabel}`;
 
@@ -136,7 +140,7 @@ const Rsvp: React.FC = () => {
 
     msg += `\n💰 *TOTAL A PAGAR:* $${totalCost.toLocaleString()}`;
     
-    const payMethodLabel = paymentMethod === 'transfer' ? 'Transferencia' : (paymentMethod === 'debit' ? 'Tarjeta de Débito' : 'Tarjeta de Crédito');
+    const payMethodLabel = paymentMethod === 'transfer' ? 'Transferencia' : 'Efectivo / En Puerta';
     msg += `\n💳 *Forma de Pago:* ${payMethodLabel}`;
     
     if (message) {
@@ -146,11 +150,46 @@ const Rsvp: React.FC = () => {
     return encodeURIComponent(msg);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  const scrollToElement = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      element.focus();
+      // Add a temporary shake or highlight effect if needed via CSS classes, 
+      // but focus usually works. We'll set an error state to highlight border.
+    }
+  };
 
-    // Small delay to show loading state
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault(); // Prevent standard submission
+    setErrorField(null);
+
+    // 1. Validate First Guest Contact
+    if (!guests[0].contact.trim()) {
+      setErrorField(`contact-${guests[0].id}`);
+      scrollToElement(`contact-${guests[0].id}`);
+      return;
+    }
+
+    // 2. Validate All Guest Names
+    for (const guest of guests) {
+      if (!guest.fullName.trim()) {
+        setErrorField(`name-${guest.id}`);
+        scrollToElement(`name-${guest.id}`);
+        return;
+      }
+    }
+
+    // 3. Validate Payment Method
+    if (!paymentMethod) {
+      setErrorField('payment-section');
+      scrollToElement('payment-section');
+      alert("Por favor, selecciona una forma de pago.");
+      return;
+    }
+
+    // If all pass
+    setIsSubmitting(true);
     setTimeout(() => {
       const waLink = `https://wa.me/5493584835320?text=${buildWhatsAppMessage()}`;
       window.open(waLink, '_blank');
@@ -169,7 +208,8 @@ const Rsvp: React.FC = () => {
       <div className="glass-card p-4 sm:p-8 rounded-3xl shadow-2xl border border-white/60 max-w-3xl mx-auto relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-wedding-royal via-blue-300 to-wedding-royal"></div>
         
-        <form onSubmit={handleSubmit} className="space-y-8">
+        {/* Added noValidate to handle validation manually */}
+        <form onSubmit={handleSubmit} noValidate className="space-y-8">
           
           <div className="space-y-8">
             {guests.map((guest, index) => (
@@ -183,7 +223,7 @@ const Rsvp: React.FC = () => {
                    )}
                 </div>
 
-                {/* 1. TIPO DE ENTRADA (First as requested) */}
+                {/* TIPO DE ENTRADA */}
                 <div className="mb-5">
                     <label className="text-xs font-bold text-wedding-royal uppercase tracking-wider mb-2 block">Seleccioná el tipo de Tarjeta</label>
                     <div className="relative">
@@ -203,36 +243,38 @@ const Rsvp: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                  {/* 2. NOMBRE */}
+                  {/* NOMBRE */}
                   <div className="space-y-1">
                     <label className="text-xs font-bold text-slate-500 uppercase">Nombre y Apellido</label>
                     <input
+                      id={`name-${guest.id}`}
                       required
                       type="text"
                       value={guest.fullName}
                       onChange={(e) => handleGuestChange(guest.id, 'fullName', e.target.value)}
-                      className="w-full px-3 py-3 rounded-lg bg-white border border-slate-200 focus:border-wedding-royal outline-none text-slate-800 transition-shadow focus:shadow-md"
+                      className={`w-full px-3 py-3 rounded-lg bg-white border outline-none text-slate-800 transition-shadow focus:shadow-md ${errorField === `name-${guest.id}` ? 'border-red-500 ring-2 ring-red-100' : 'border-slate-200 focus:border-wedding-royal'}`}
                       placeholder="Nombre completo"
                     />
                   </div>
                   
-                  {/* 3. CONTACTO (Hidden for children) */}
-                  {guest.type === 'adult' && (
+                  {/* CONTACTO - Solo para el primer invitado (index 0) */}
+                  {index === 0 && (
                     <div className="space-y-1 animate-fade-in">
                       <label className="text-xs font-bold text-slate-500 uppercase">Contacto (Tel/Email)</label>
                       <input
+                        id={`contact-${guest.id}`}
                         required
                         type="text"
                         value={guest.contact}
                         onChange={(e) => handleGuestChange(guest.id, 'contact', e.target.value)}
-                        className="w-full px-3 py-3 rounded-lg bg-white border border-slate-200 focus:border-wedding-royal outline-none text-slate-800 transition-shadow focus:shadow-md"
+                        className={`w-full px-3 py-3 rounded-lg bg-white border outline-none text-slate-800 transition-shadow focus:shadow-md ${errorField === `contact-${guest.id}` ? 'border-red-500 ring-2 ring-red-100' : 'border-slate-200 focus:border-wedding-royal'}`}
                         placeholder="WhatsApp o Email"
                       />
                     </div>
                   )}
                 </div>
 
-                {/* 4. RESTRICCIONES */}
+                {/* RESTRICCIONES */}
                 <div className="mb-4 space-y-1">
                    <label className="text-xs font-bold text-slate-500 uppercase">Restricciones Alimentarias</label>
                    <input
@@ -244,7 +286,7 @@ const Rsvp: React.FC = () => {
                     />
                 </div>
 
-                {/* 5. BARRA LIBRE (Conditionally Rendered for Adults only) */}
+                {/* BARRA LIBRE */}
                 {guest.type === 'adult' && (
                   <div className="mb-6 animate-fade-in">
                     <div className="flex items-center gap-3 bg-blue-50/80 p-3 rounded-lg border border-blue-100 hover:border-blue-300 transition-colors">
@@ -262,7 +304,7 @@ const Rsvp: React.FC = () => {
                   </div>
                 )}
 
-                {/* 6. TRANSPORTE (Per guest) */}
+                {/* TRANSPORTE */}
                 <div className="space-y-2">
                    <label className="text-xs font-bold text-slate-500 uppercase block text-center sm:text-left">¿Asistirás en vehículo?</label>
                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -303,7 +345,7 @@ const Rsvp: React.FC = () => {
                    </div>
                 </div>
 
-                {/* 7. ACCOMMODATION FOR MOTOS (Conditional) */}
+                {/* ACCOMMODATION FOR MOTOS (Conditional) */}
                 {guest.type === 'adult' && guest.transport === 'moto' && (
                   <div className="mt-6 animate-fade-in bg-blue-50/50 p-4 rounded-xl border border-blue-200">
                      <p className="text-xs font-bold text-wedding-royal uppercase tracking-wider mb-3 flex items-center gap-2">
@@ -411,20 +453,42 @@ const Rsvp: React.FC = () => {
 
           <div className="border-t border-slate-200 my-6"></div>
 
-          <div className="bg-slate-800 text-white p-6 rounded-2xl shadow-lg">
+          <div className="bg-slate-800 text-white p-6 rounded-2xl shadow-lg" id="payment-section">
             <div className="flex justify-between items-center text-xl font-cinzel mb-6">
               <span>Total a Pagar</span>
               <span className="text-2xl text-blue-400 font-bold">${totalCost.toLocaleString()}</span>
             </div>
 
-            <div className="space-y-4">
-              <h5 className="text-sm font-bold uppercase tracking-wider text-slate-400">Forma de Pago</h5>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className={`space-y-4 rounded-xl p-2 transition-colors ${errorField === 'payment-section' ? 'ring-2 ring-red-500 bg-red-900/20' : ''}`}>
+              <h5 className="text-sm font-bold uppercase tracking-wider text-slate-400">Elige cómo abonarás:</h5>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {/* Opción Transferencia */}
                 <label className={`cursor-pointer border rounded-xl p-4 flex flex-col items-center gap-2 transition-all ${paymentMethod === 'transfer' ? 'bg-wedding-royal text-white border-wedding-royal scale-105 shadow-lg' : 'border-slate-600 hover:border-slate-400 text-slate-300'}`}>
-                  <input type="radio" name="payment" className="hidden" value="transfer" onChange={() => setPaymentMethod('transfer')} checked={paymentMethod === 'transfer'} />
+                  <input 
+                    type="radio" 
+                    name="payment" 
+                    className="hidden" 
+                    value="transfer" 
+                    onChange={() => { setPaymentMethod('transfer'); setErrorField(null); }} 
+                    checked={paymentMethod === 'transfer'} 
+                  />
+                  <Wallet className="w-6 h-6 mb-1" />
                   <span className="font-bold text-sm">Transferencia</span>
                 </label>
-                
+
+                {/* Opción Pagar en Puerta */}
+                <label className={`cursor-pointer border rounded-xl p-4 flex flex-col items-center gap-2 transition-all ${paymentMethod === 'cash' ? 'bg-wedding-royal text-white border-wedding-royal scale-105 shadow-lg' : 'border-slate-600 hover:border-slate-400 text-slate-300'}`}>
+                  <input 
+                    type="radio" 
+                    name="payment" 
+                    className="hidden" 
+                    value="cash" 
+                    onChange={() => { setPaymentMethod('cash'); setErrorField(null); }} 
+                    checked={paymentMethod === 'cash'} 
+                  />
+                  <Banknote className="w-6 h-6 mb-1" />
+                  <span className="font-bold text-sm">Pagar en Puerta</span>
+                </label>
               </div>
 
               {/* Info de Transferencia INLINE */}
@@ -444,8 +508,16 @@ const Rsvp: React.FC = () => {
                     <p className="text-slate-400 text-[10px] mt-2">Copia el alias y realiza el pago en tu app bancaria.</p>
                  </div>
               )}
-              
-              
+
+              {/* Info de Pago en Puerta INLINE */}
+              {paymentMethod === 'cash' && (
+                 <div className="bg-green-900/30 border border-green-700/30 p-4 rounded-xl mt-4 animate-fade-in text-center">
+                    <p className="text-green-300 text-sm font-medium">
+                      Abonarás el total al ingresar al salón.
+                    </p>
+                    <p className="text-slate-400 text-[10px] mt-1">Por favor llevar el cambio justo para agilizar el ingreso.</p>
+                 </div>
+              )}
             </div>
           </div>
 
@@ -468,7 +540,7 @@ const Rsvp: React.FC = () => {
 
           <button
             type="submit"
-            disabled={isSubmitting || paymentMethod === null}
+            disabled={isSubmitting} // Enabled even if validation fails, validation runs onClick
             className="w-full py-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-cinzel text-lg tracking-widest shadow-lg hover:shadow-2xl hover:scale-[1.01] active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2 relative overflow-hidden group animate-pulse-glow"
           >
             {isSubmitting ? (

@@ -21,7 +21,7 @@ export interface Guest {
 
 export interface RsvpFormData {
   guests: Guest[];
-  paymentMethod: 'transfer' | 'debit' | 'credit' | null;
+  paymentMethod: 'transfer' | 'cash' | null;
   message: string;
 }
 
