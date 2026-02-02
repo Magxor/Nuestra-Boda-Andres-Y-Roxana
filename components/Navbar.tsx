@@ -9,8 +9,8 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToRsvp = () => {
-    const el = document.getElementById('rsvp');
+  const scrollToPhotos = () => {
+    const el = document.getElementById('photo-gallery');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -23,15 +23,14 @@ const Navbar: React.FC = () => {
         
         <div className="flex items-center relative">
             <button
-            onClick={scrollToRsvp}
-            className={`relative z-10 px-5 sm:px-7 py-2.5 rounded-full text-xs sm:text-sm font-medium tracking-widest uppercase transition-all duration-300 flex flex-col items-center leading-tight shadow-lg animate-pulse-glow ${
+            onClick={scrollToPhotos}
+            className={`relative z-10 px-6 sm:px-8 py-3 rounded-full text-sm sm:text-base font-medium tracking-widest uppercase transition-all duration-300 shadow-lg animate-pulse-glow ${
             scrolled
             ? 'bg-wedding-royal text-white'
             : 'bg-white text-wedding-royal'
            }`}
            >
-              <span className="font-bold drop-shadow-sm">Confirmá tu Asistencia</span>
-              <span className={`text-[10px] sm:text-[10px] font-sans normal-case tracking-wide opacity-90 ${scrolled ? 'text-blue-100' : 'text-wedding-royal-500'}`}>antes del 05/01/2026</span>
+              <span className="font-bold drop-shadow-sm">Ver Fotos</span>
             </button>
         </div>
       </div>
