@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Photo } from '../types';
 import { Camera, Download, FileArchive, X, ChevronLeft, ChevronRight, ImageOff } from 'lucide-react';
 import ImageModal from './ImageModal';
+import LazyImage from './LazyImage';
 
 // --- DATOS DE FOTOS Y GALERÍAS (Reemplazar con tus links) ---
 
@@ -203,15 +204,10 @@ const PhotoGallery: React.FC = () => {
               {currentPhotos.map((photo, index) => (
                 <div
                   key={photo.id}
-                  className="aspect-square bg-slate-100 rounded-lg overflow-hidden cursor-pointer group relative shadow-sm"
+                  className="aspect-square rounded-lg overflow-hidden cursor-pointer group relative shadow-sm"
                   onClick={() => handleOpenModal(index)}
                 >
-                  <img
-                    src={photo.thumbnailUrl}
-                    alt={photo.alt}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                    loading="lazy"
-                  />
+                  <LazyImage src={photo.thumbnailUrl} alt={photo.alt} />
                   <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <Camera className="w-8 h-8 text-white drop-shadow-lg" />
                   </div>
