@@ -6,8 +6,19 @@ import LazyImage from './LazyImage';
 
 // --- DATOS DE FOTOS Y GALERÍAS (Reemplazar con tus links) ---
 
-const civilPhotoLinks = [
+const civilPhotoLinks: string[] = [
   'https://i.postimg.cc/VLvdssJD/SAL-4480.jpg',
+  'https://i.postimg.cc/1XkhZKgk/SAL-4486.jpg',
+  'https://i.postimg.cc/jqmrNR8P/SAL-4490.jpg',
+  'https://i.postimg.cc/rF42N7bn/SAL-4492.jpg',
+  'https://i.postimg.cc/VLtPW2T3/SAL-4494.jpg',
+  'https://i.postimg.cc/pXjMJ34L/SAL-4495.jpg',
+  'https://i.postimg.cc/RZz5sXxm/SAL-4496.jpg',
+  'https://i.postimg.cc/x1SDxtVM/SAL-4498.jpg',
+  'https://i.postimg.cc/SxpFTDbW/SAL-4499.jpg',
+  'https://i.postimg.cc/2SFpPhCH/SAL-4500.jpg',
+  'https://i.postimg.cc/x1yrWM9x/SAL-4501.jpg',
+  'https://i.postimg.cc/N0shYF0P/SAL-4503.jpg',
 ];
 
 
@@ -27,7 +38,7 @@ const galleriesData: Record<Category, { title: string; photos: Photo[]; download
   civil: { 
     title: 'Civil', 
     photos: civilPhotos,
-    downloadUrl: null 
+    downloadUrl: 'https://postimg.cc/gallery/rqkbSJv' 
   },
   boda: { 
     title: 'Boda', 
