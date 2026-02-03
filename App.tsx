@@ -26,11 +26,11 @@ function App() {
         
         {/* Hero Background Image Overlay */}
         <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
-           <div className="w-full h-full bg-[url('https://images.unsplash.com/photo-1519225468359-19fb85886508?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center mix-blend-overlay"></div>
+           <div className="w-full h-full bg-[url('https://i.postimg.cc/2jWY8RgP/Portada-Nuestra-Boda.png')] bg-cover bg-center mix-blend-overlay"></div>
            <div className="absolute inset-0 bg-gradient-to-b from-blue-50/80 via-white/40 to-blue-50/90"></div>
         </div>
 
-        <div className="animate-fade-in-up space-y-8 z-10 max-w-4xl mx-auto bg-white/30 backdrop-blur-xl p-8 sm:p-16 rounded-[3rem] border border-white/60 shadow-2xl relative overflow-hidden group">
+        <div className="animate-fade-in-up space-y-6 z-10 max-w-4xl mx-auto bg-white/30 backdrop-blur-xl p-8 sm:p-16 rounded-[3rem] border border-white/60 shadow-2xl relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-40 h-40 -mt-10 -mr-10 opacity-30 transition-transform group-hover:scale-110 duration-1000">
              <RoseDecoration color="blue" />
           </div>
@@ -39,14 +39,18 @@ function App() {
             ¡Gracias por acompañarnos!
           </div>
           <h1 className="text-5xl sm:text-7xl md:text-8xl font-cinzel text-slate-900 font-bold tracking-tighter drop-shadow-sm leading-none">
-            Andres <span className="text-wedding-royal font-serif italic font-light text-4xl sm:text-7xl align-middle mx-2">&</span> Roxana
+            Andrés <span className="text-wedding-royal font-serif italic font-light text-4xl sm:text-7xl align-middle mx-2">y</span> Roxana
           </h1>
+
+          <p className="font-sans text-xl sm:text-2xl text-slate-600 tracking-[0.2em] -mt-2">
+            17 · 01 · 26
+          </p>
           
           <p className="text-lg sm:text-xl font-serif italic text-slate-700 pt-6 max-w-2xl mx-auto">
             Reviví con nosotros los momentos más especiales de nuestro gran día. Explora la galería y descarga tus fotos favoritas.
           </p>
 
-          <div className="pt-10">
+          <div className="pt-8">
             <button 
               onClick={() => document.getElementById('photo-gallery')?.scrollIntoView({ behavior: 'smooth' })}
               className="px-8 py-4 bg-wedding-royal text-white rounded-full font-bold shadow-lg hover:bg-blue-700 transition-colors animate-pulse-glow flex items-center gap-3 mx-auto uppercase tracking-widest text-sm"
