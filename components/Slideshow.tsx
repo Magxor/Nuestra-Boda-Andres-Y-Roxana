@@ -54,7 +54,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ photos, onClose }) => {
         <img
           key={currentIndex}
           src={photos[currentIndex].fullUrl}
-          className={`w-full h-full object-cover transition-opacity duration-1000 ${kenBurnsClass}`}
+          className={`w-full h-full object-contain transition-opacity duration-1000 ${kenBurnsClass}`}
         />
         <div className="absolute inset-0 bg-black/20"></div>
       </div>
@@ -101,6 +101,13 @@ const Slideshow: React.FC<SlideshowProps> = ({ photos, onClose }) => {
                 <p className="font-bold">{`Foto ${currentIndex + 1} de ${photos.length}`}</p>
                 <p className="text-white/70 text-xs">{photos[currentIndex].alt}</p>
             </div>
+             <button
+              onClick={onClose}
+              className="px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white text-sm font-semibold transition-colors flex-shrink-0"
+              aria-label="Salir de la presentación"
+            >
+              Salir
+            </button>
         </div>
         
         {/* Progress Bar */}

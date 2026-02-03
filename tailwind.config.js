@@ -66,12 +66,12 @@ export default {
           '100%': { width: '100%' },
         },
         kenBurns1: {
-            '0%': { transform: 'scale(1.1) translate(-2%, -2%)' },
-            '100%': { transform: 'scale(1.3) translate(2%, 2%)' },
+            '0%': { transform: 'scale(1) translate(0, 0)' },
+            '100%': { transform: 'scale(1.1) translate(-1%, -1%)' },
         },
         kenBurns2: {
-            '0%': { transform: 'scale(1.2) translate(3%, 3%)' },
-            '100%': { transform: 'scale(1) translate(-1%, -1%)' },
+            '0%': { transform: 'scale(1.1) translate(1%, 1%)' },
+            '100%': { transform: 'scale(1) translate(0, 0)' },
         },
       }
     }
