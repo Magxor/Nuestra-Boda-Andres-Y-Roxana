@@ -90,15 +90,27 @@ const ImageModal: React.FC<ImageModalProps> = ({ photo, onClose, onNext, onPrev,
             />
         </div>
         
-        {/* Download button */}
-        <button
-          onClick={handleDownload}
-          className="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-6 py-3 rounded-full bg-wedding-royal text-white font-bold text-sm uppercase tracking-wider shadow-lg hover:bg-blue-700 transition-colors animate-pulse-glow"
-          aria-label="Descargar foto"
-        >
-          <Download className="w-4 h-4" />
-          Descargar
-        </button>
+        {/* Action Buttons */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4">
+          {/* Volver button */}
+          <button
+            onClick={onClose}
+            className="px-6 py-3 rounded-full bg-white/90 text-slate-700 font-bold text-sm uppercase tracking-wider shadow-lg hover:bg-white transition-colors backdrop-blur-sm"
+            aria-label="Volver a la galería"
+          >
+            Volver
+          </button>
+
+          {/* Download button */}
+          <button
+            onClick={handleDownload}
+            className="flex items-center gap-2 px-6 py-3 rounded-full bg-wedding-royal text-white font-bold text-sm uppercase tracking-wider shadow-lg hover:bg-blue-700 transition-colors animate-pulse-glow"
+            aria-label="Descargar foto"
+          >
+            <Download className="w-4 h-4" />
+            Descargar
+          </button>
+        </div>
       </div>
     </div>
   );
