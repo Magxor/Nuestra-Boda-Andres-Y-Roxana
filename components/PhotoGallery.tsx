@@ -3,42 +3,44 @@ import { Photo } from '../types';
 import { Camera, Download, FileArchive, X, ChevronLeft, ChevronRight, ImageOff } from 'lucide-react';
 import ImageModal from './ImageModal';
 
-// --- DATOS DE FOTOS (Reemplazar con tus links) ---
+// --- DATOS DE FOTOS Y GALERÍAS (Reemplazar con tus links) ---
 
-const civilPhotos: Photo[] = [
-  // Extraídas de https://postimg.cc/gallery/WJ2VYXv
-  { id: 1, fullUrl: 'https://i.postimg.cc/vB0hN90p/DSC-0001.jpg', thumbnailUrl: 'https://i.postimg.cc/vB0hN90p/DSC-0001.jpg', alt: 'Foto del Civil 1' },
-  { id: 2, fullUrl: 'https://i.postimg.cc/DSj2yqyk/DSC-0008.jpg', thumbnailUrl: 'https://i.postimg.cc/DSj2yqyk/DSC-0008.jpg', alt: 'Foto del Civil 2' },
-  { id: 3, fullUrl: 'https://i.postimg.cc/x8KkbrRT/DSC-0010.jpg', thumbnailUrl: 'https://i.postimg.cc/x8KkbrRT/DSC-0010.jpg', alt: 'Foto del Civil 3' },
-  { id: 4, fullUrl: 'https://i.postimg.cc/Y0G3k2nZ/DSC-0014.jpg', thumbnailUrl: 'https://i.postimg.cc/Y0G3k2nZ/DSC-0014.jpg', alt: 'Foto del Civil 4' },
-  { id: 5, fullUrl: 'https://i.postimg.cc/TY4V3G5q/DSC-0017.jpg', thumbnailUrl: 'https://i.postimg.cc/TY4V3G5q/DSC-0017.jpg', alt: 'Foto del Civil 5' },
-  { id: 6, fullUrl: 'https://i.postimg.cc/bwxF10Bq/DSC-0022.jpg', thumbnailUrl: 'https://i.postimg.cc/bwxF10Bq/DSC-0022.jpg', alt: 'Foto del Civil 6' },
-  { id: 7, fullUrl: 'https://i.postimg.cc/8zQ2P0Y3/DSC-0027.jpg', thumbnailUrl: 'https://i.postimg.cc/8zQ2P0Y3/DSC-0027.jpg', alt: 'Foto del Civil 7' },
-  { id: 8, fullUrl: 'https://i.postimg.cc/mkjC2Xg8/DSC-0030.jpg', thumbnailUrl: 'https://i.postimg.cc/mkjC2Xg8/DSC-0030.jpg', alt: 'Foto del Civil 8' },
-  { id: 9, fullUrl: 'https://i.postimg.cc/D0hVmhv0/DSC-0034.jpg', thumbnailUrl: 'https://i.postimg.cc/D0hVmhv0/DSC-0034.jpg', alt: 'Foto del Civil 9' },
-  { id: 10, fullUrl: 'https://i.postimg.cc/44zT8Kkf/DSC-0037.jpg', thumbnailUrl: 'https://i.postimg.cc/44zT8Kkf/DSC-0037.jpg', alt: 'Foto del Civil 10' },
-  { id: 11, fullUrl: 'https://i.postimg.cc/T3Ybsz0T/DSC-0038.jpg', thumbnailUrl: 'https://i.postimg.cc/T3Ybsz0T/DSC-0038.jpg', alt: 'Foto del Civil 11' },
-  { id: 12, fullUrl: 'https://i.postimg.cc/G3x7M3sS/DSC-0044.jpg', thumbnailUrl: 'https://i.postimg.cc/G3x7M3sS/DSC-0044.jpg', alt: 'Foto del Civil 12' },
-];
+const civilPhotos: Photo[] = []; // Vaciamos el array de fotos individuales del civil
+const bodaPhotos: Photo[] = [];
+const fiestaPhotos: Photo[] = [];
 
-const bodaPhotos: Photo[] = []; // Vacío por ahora
-const fiestaPhotos: Photo[] = []; // Vacío por ahora
+type Category = 'civil' | 'boda' | 'fiesta';
+
+const galleriesData: Record<Category, { title: string; photos: Photo[]; downloadUrl: string | null }> = {
+  civil: { 
+    title: 'Civil', 
+    photos: civilPhotos,
+    downloadUrl: 'https://od.lk/fl/OTdfMTMzODY3NzRf' // Nuevo link de la galería externa
+  },
+  boda: { 
+    title: 'Boda', 
+    photos: bodaPhotos,
+    downloadUrl: null // Aún sin link
+  },
+  fiesta: { 
+    title: 'Fiesta', 
+    photos: fiestaPhotos,
+    downloadUrl: null // Aún sin link
+  },
+};
 
 // --------------------------------------------------
 
-type Category = 'civil' | 'boda' | 'fiesta';
 
 const PhotoGallery: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Category>('civil');
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
 
-  const galleries: Record<Category, { title: string; photos: Photo[] }> = {
-    civil: { title: 'Civil', photos: civilPhotos },
-    boda: { title: 'Boda', photos: bodaPhotos },
-    fiesta: { title: 'Fiesta', photos: fiestaPhotos },
-  };
+  const galleries = galleriesData;
+  const currentGallery = galleries[activeTab];
+  const currentPhotos = currentGallery.photos;
+  const currentDownloadUrl = currentGallery.downloadUrl;
 
-  const currentPhotos = galleries[activeTab].photos;
 
   const handleOpenModal = (index: number) => {
     setSelectedImageIndex(index);
@@ -86,14 +88,18 @@ const PhotoGallery: React.FC = () => {
         {currentPhotos.length > 0 ? (
           <>
             <div className="flex flex-col sm:flex-row justify-between items-center mb-6 border-b border-blue-100 pb-4">
-               <h3 className="font-cinzel text-2xl sm:text-3xl text-slate-800 font-bold mb-3 sm:mb-0">Galería: {galleries[activeTab].title}</h3>
-               <a 
-                 href="#" // Reemplazar con el link de descarga del ZIP
-                 className="flex items-center gap-2 bg-slate-800 text-white px-5 py-3 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-wedding-royal transition-colors shadow-lg animate-pulse-glow"
-               >
-                 <FileArchive className="w-4 h-4" />
-                 Descargar Todas
-               </a>
+               <h3 className="font-cinzel text-2xl sm:text-3xl text-slate-800 font-bold mb-3 sm:mb-0">Galería: {currentGallery.title}</h3>
+                {currentDownloadUrl && (
+                  <a 
+                    href={currentDownloadUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 bg-slate-800 text-white px-5 py-3 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-wedding-royal transition-colors shadow-lg animate-pulse-glow"
+                  >
+                    <FileArchive className="w-4 h-4" />
+                    Ver/Descargar Todas
+                  </a>
+                )}
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {currentPhotos.map((photo, index) => (
@@ -115,6 +121,25 @@ const PhotoGallery: React.FC = () => {
               ))}
             </div>
           </>
+        ) : currentDownloadUrl ? (
+          <div className="flex-grow flex flex-col items-center justify-center text-center p-8">
+             <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mb-6 ring-4 ring-blue-100/50">
+                <Camera className="w-10 h-10 text-blue-300" />
+             </div>
+             <h3 className="font-cinzel text-3xl text-slate-700 font-bold">Galería del {currentGallery.title}</h3>
+             <p className="text-slate-500 mt-2 font-serif max-w-md">
+                La galería de fotos completa está alojada en un servicio externo. Haz clic en el botón para ver y descargar todas las imágenes.
+             </p>
+             <a 
+                 href={currentDownloadUrl}
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 className="mt-8 flex items-center gap-2 bg-slate-800 text-white px-8 py-4 rounded-full text-sm font-bold uppercase tracking-wider hover:bg-wedding-royal transition-colors shadow-lg animate-pulse-glow"
+               >
+                 <FileArchive className="w-5 h-5" />
+                 Abrir Galería
+               </a>
+          </div>
         ) : (
           <div className="flex-grow flex flex-col items-center justify-center text-center p-8">
              <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mb-6 ring-4 ring-blue-100/50">
@@ -122,7 +147,7 @@ const PhotoGallery: React.FC = () => {
              </div>
              <h3 className="font-cinzel text-3xl text-slate-700 font-bold">Próximamente...</h3>
              <p className="text-slate-500 mt-2 font-serif">
-                Las fotos de la <span className="font-bold text-slate-600">{galleries[activeTab].title}</span> estarán disponibles muy pronto. ¡Vuelve a visitarnos!
+                Las fotos de la <span className="font-bold text-slate-600">{currentGallery.title}</span> estarán disponibles muy pronto. ¡Vuelve a visitarnos!
              </p>
           </div>
         )}
