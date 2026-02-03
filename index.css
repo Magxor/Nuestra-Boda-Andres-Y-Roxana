@@ -34,3 +34,12 @@
     background: rgba(21, 96, 189, 0.5);
   }
 }
+
+@layer utilities {
+    .animate-ken-burns-1 {
+        animation: kenBurns1 15s ease-in-out forwards;
+    }
+    .animate-ken-burns-2 {
+        animation: kenBurns2 15s ease-in-out forwards;
+    }
+}

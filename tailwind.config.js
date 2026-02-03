@@ -28,6 +28,9 @@ export default {
         'spin-slow': 'spin 12s linear infinite',
         'pulse-glow': 'pulseGlow 2s infinite',
         'pulse-glow-white': 'pulseGlowWhite 2s infinite',
+        'progress-bar': 'progressBar 5s linear infinite',
+        'ken-burns-1': 'kenBurns1 15s ease-in-out infinite',
+        'ken-burns-2': 'kenBurns2 15s ease-in-out infinite',
       },
       keyframes: {
         float: {
@@ -57,6 +60,18 @@ export default {
         pulseBlueSoft: {
           '0%, 100%': { boxShadow: '0 0 0 0 rgba(255,255,255,0.6)' },
           '50%': { boxShadow: '0 0 10px 4px rgba(255,255,255,0.3)' },
+        },
+        progressBar: {
+          '0%': { width: '0%' },
+          '100%': { width: '100%' },
+        },
+        kenBurns1: {
+            '0%': { transform: 'scale(1.1) translate(-2%, -2%)' },
+            '100%': { transform: 'scale(1.3) translate(2%, 2%)' },
+        },
+        kenBurns2: {
+            '0%': { transform: 'scale(1.2) translate(3%, 3%)' },
+            '100%': { transform: 'scale(1) translate(-1%, -1%)' },
         },
       }
     }
