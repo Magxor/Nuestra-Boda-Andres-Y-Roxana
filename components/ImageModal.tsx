@@ -63,7 +63,7 @@ const ImageModal: React.FC<ImageModalProps> = ({ photo, onClose, onNext, onPrev,
         {hasPrev && (
             <button
             onClick={onPrev}
-            className="absolute left-2 sm:left-4 z-50 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+            className="absolute left-2 sm:left-4 z-50 w-12 h-12 rounded-full bg-wedding-royal text-white flex items-center justify-center transition-all duration-300 shadow-lg hover:bg-blue-700 animate-pulse-glow"
             aria-label="Anterior"
             >
             <ChevronLeft className="w-8 h-8" />
@@ -74,7 +74,7 @@ const ImageModal: React.FC<ImageModalProps> = ({ photo, onClose, onNext, onPrev,
         {hasNext && (
             <button
             onClick={onNext}
-            className="absolute right-2 sm:right-4 z-50 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+            className="absolute right-2 sm:right-4 z-50 w-12 h-12 rounded-full bg-wedding-royal text-white flex items-center justify-center transition-all duration-300 shadow-lg hover:bg-blue-700 animate-pulse-glow"
             aria-label="Siguiente"
             >
             <ChevronRight className="w-8 h-8" />
@@ -104,7 +104,7 @@ const ImageModal: React.FC<ImageModalProps> = ({ photo, onClose, onNext, onPrev,
           {/* Download button */}
           <button
             onClick={handleDownload}
-            className="flex items-center gap-2 px-6 py-3 rounded-full bg-wedding-royal text-white font-bold text-sm uppercase tracking-wider shadow-lg hover:bg-blue-700 transition-colors animate-pulse-glow"
+            className="flex items-center gap-2 px-6 py-3 rounded-full bg-wedding-royal text-white font-bold text-sm uppercase tracking-wider shadow-lg hover:bg-blue-700 transition-colors"
             aria-label="Descargar foto"
           >
             <Download className="w-4 h-4" />
