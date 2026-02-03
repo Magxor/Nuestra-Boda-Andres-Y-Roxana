@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Photo } from '../types';
 import { X, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 
@@ -13,6 +13,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ photos, onClose }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [kenBurnsClass, setKenBurnsClass] = useState('animate-ken-burns-1');
+  const slideshowRef = useRef<HTMLDivElement>(null);
 
   const goToNext = useCallback(() => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % photos.length);
@@ -27,6 +28,33 @@ const Slideshow: React.FC<SlideshowProps> = ({ photos, onClose }) => {
   const togglePlay = () => {
     setIsPlaying(!isPlaying);
   };
+
+  useEffect(() => {
+    const elem = slideshowRef.current;
+    if (elem) {
+      elem.requestFullscreen().catch(err => {
+        console.warn("No se pudo iniciar el modo de pantalla completa:", err.message);
+      });
+    }
+    
+    document.body.classList.add('overflow-hidden');
+
+    const onFullscreenChange = () => {
+      if (!document.fullscreenElement) {
+        onClose();
+      }
+    };
+
+    document.addEventListener('fullscreenchange', onFullscreenChange);
+
+    return () => {
+      document.body.classList.remove('overflow-hidden');
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      }
+      document.removeEventListener('fullscreenchange', onFullscreenChange);
+    };
+  }, [onClose]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -48,7 +76,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ photos, onClose }) => {
 
 
   return (
-    <div className="fixed inset-0 z-[80] bg-black/90 backdrop-blur-sm flex flex-col items-center justify-center animate-fade-in">
+    <div ref={slideshowRef} className="fixed inset-0 z-[80] bg-black flex flex-col items-center justify-center animate-fade-in">
       {/* Background Image (for crossfade) */}
       <div className="absolute inset-0 overflow-hidden">
         <img
@@ -56,7 +84,6 @@ const Slideshow: React.FC<SlideshowProps> = ({ photos, onClose }) => {
           src={photos[currentIndex].fullUrl}
           className={`w-full h-full object-contain transition-opacity duration-1000 ${kenBurnsClass}`}
         />
-        <div className="absolute inset-0 bg-black/20"></div>
       </div>
 
 

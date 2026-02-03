@@ -1,9 +1,9 @@
 
+
 import React, { useState } from 'react';
 import BackgroundParticles from './components/BackgroundParticles';
 import Navbar from './components/Navbar';
 import RoseDecoration from './components/RoseDecoration';
-import MusicPlayer from './components/MusicPlayer';
 import PhotoGallery from './components/PhotoGallery';
 import { Heart, Camera } from 'lucide-react';
 
@@ -12,7 +12,6 @@ function App() {
     <div className="relative min-h-screen w-full overflow-x-hidden selection:bg-blue-200 selection:text-blue-900 bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
       <BackgroundParticles />
       <Navbar />
-      <MusicPlayer />
 
       {/* Decorative Roses - Fixed Corners */}
       <div className="fixed top-[-20px] left-[-20px] w-48 h-48 sm:w-80 sm:h-80 z-0 opacity-60 pointer-events-none">
