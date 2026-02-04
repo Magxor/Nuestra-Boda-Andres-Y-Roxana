@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Photo } from '../types';
-import { Camera, ImageOff, PlayCircle } from 'lucide-react';
+import { Camera, ImageOff, PlayCircle, Cast } from 'lucide-react';
 import ImageModal from './ImageModal';
 import LazyImage from './LazyImage';
 import Slideshow from './Slideshow';
+import VideoCaster from './VideoCaster';
 
 // --- DATOS DE FOTOS Y GALERÍAS (Reemplazar con tus links) ---
 
@@ -1348,6 +1349,7 @@ const PhotoGallery: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Category>('civil');
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [slideshowPhotos, setSlideshowPhotos] = useState<Photo[] | null>(null);
+  const [isCasting, setIsCasting] = useState(false);
 
   const galleries = galleriesData;
   const currentGallery = galleries[activeTab];
@@ -1401,13 +1403,24 @@ const PhotoGallery: React.FC = () => {
           <>
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 border-b border-blue-100 pb-4">
                <h3 className="font-cinzel text-2xl sm:text-3xl text-slate-800 font-bold mb-4 sm:mb-0">Galería: {currentGallery.title}</h3>
-               <button 
-                onClick={() => setSlideshowPhotos(currentPhotos)}
-                className="flex items-center gap-2 px-4 py-2 bg-wedding-royal/10 text-wedding-royal rounded-full font-semibold text-sm hover:bg-wedding-royal/20 transition-colors"
-               >
-                 <PlayCircle className="w-5 h-5" />
-                 Reproducir Presentación
-               </button>
+               <div className="flex items-center gap-2">
+                 <button 
+                  onClick={() => setSlideshowPhotos(currentPhotos)}
+                  className="flex items-center gap-2 px-4 py-2 bg-wedding-royal/10 text-wedding-royal rounded-full font-semibold text-sm hover:bg-wedding-royal/20 transition-colors"
+                  aria-label="Reproducir presentación"
+                 >
+                   <PlayCircle className="w-5 h-5" />
+                   Reproducir
+                 </button>
+                 <button 
+                  onClick={() => setIsCasting(true)}
+                  className="flex items-center gap-2 px-4 py-2 bg-wedding-royal/10 text-wedding-royal rounded-full font-semibold text-sm hover:bg-wedding-royal/20 transition-colors"
+                  aria-label="Transmitir a TV"
+                 >
+                   <Cast className="w-5 h-5" />
+                   Transmitir
+                 </button>
+               </div>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {currentPhotos.map((photo, index) => (
@@ -1452,6 +1465,13 @@ const PhotoGallery: React.FC = () => {
         <Slideshow 
           photos={slideshowPhotos} 
           onClose={() => setSlideshowPhotos(null)} 
+        />
+      )}
+      
+      {isCasting && (
+        <VideoCaster
+          photos={currentPhotos}
+          onClose={() => setIsCasting(false)}
         />
       )}
     </div>
